@@ -70,7 +70,7 @@ class VideoCamera(object):
         # print "in get_object, before drawing using hough circles"
         #Draw Circles
         if circles is not None:
-            print "can detect circles"
+            # print "can detect circles"
             found_objects = True
             for i in circles[0,:]:
                 # If the ball is far, draw it in green
