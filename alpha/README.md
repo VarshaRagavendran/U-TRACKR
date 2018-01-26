@@ -1,4 +1,4 @@
-# U-TRACKR
+# U-TRACKR ALPHA
 Detects an object's location using photogrammetry. Currently utilizes the Raspberry Pi with a camera module running Open-CV for object detection. Runs a server that provides a live video stream.
 
 ## Setup
@@ -48,7 +48,7 @@ sudo modprobe bcm2835-v4l2
 
 Note: The modprobe bcm2835-vl2 command prevents a common OpenCV assertion error when using the Pi Camera.
 
-Go to the folder where this repository is stored, go to /prototype and run the following:
+Go to the folder where this repository is stored, go to /alpha and run the following:
 
 ```
 python main.py
@@ -58,7 +58,7 @@ You can view a live stream by visiting the ip address of your pi in a browser on
 
 Visit `<raspberrypi_ip>:5000` in your browser to view the stream.
 
-Alternatively, you can run a simple tracking app in /prototype/test to ensure the proper HSV values for object tracking.
+Alternatively, you can run a simple tracking app in /alpha/test to ensure the proper HSV values for object tracking.
 
 ```
 python tracking.py
