@@ -6,7 +6,7 @@ import imutils
 
 cap = cv2.VideoCapture();
 #IP addr to change depending on Pi
-cap.open('tcp://192.168.86.133:5000')
+cap.open('tcp://192.168.1.248:5000')
 
 
 while(cap.isOpened()):
