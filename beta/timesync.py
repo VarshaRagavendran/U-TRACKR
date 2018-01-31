@@ -8,5 +8,5 @@ pwd = 'raspberry'
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect( hostname = target_host , username = un, password = pwd ) 
-stdin, stdout, stderr = ssh.exec_command('echo hello world')
-print "STDOUT:\n%s\n\nSTDERR:\n%s\n" %( stdout.read(), stderr.read() )
+stdin, stdout, stderr = ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S.%N\'')
+print "STDOUT:\n%s\n" %( stdout.read() )
