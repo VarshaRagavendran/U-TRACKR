@@ -18,7 +18,7 @@ class timesync(object):
 
     def getTimeStamp(self):
         stdin, stdout, stderr = self.ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S.%N\'')
-        return stdout.read()
+        return stdout.read().rstrip()
 
     def closeSSHClient(self):
         self.ssh.close()
