@@ -1,0 +1,11 @@
+matlab methods/functions used
+
+- pi       :(3.14 ie.pi*x)
+- syms     :(assign as a symbol or variable to use vpa solve) 
+- vpasolve :(solving linear equation of Ax= B where x =A\B (BACKSLASH FUNCTION) matlab function)
+- inv      :(inverse matrix function)
+- '        :(transpose matrix funciton)
+- atand    :(inverse tan output calculated in degrees)
+- sind,cosd:(sin/cos calculation in degrees)
+- double() :(casting)
+
