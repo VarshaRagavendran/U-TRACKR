@@ -81,8 +81,35 @@ Amat = np.array([[XC[0] , -YC[0] , 1 , 0],
      [YC[3], XC[3] , 0 , 1 ]])
 
 
-Xmat = 	np.linalg.inv(np.dot(Amat.transpose(),Amat))
-#kappa = math.degrees(math.atan(Xmat[1]/Xmat[0])) + 180
+Xmat = 	np.linalg.inv(np.cross(Amat.transpose(),Amat))
+
+kappa = math.degrees(math.atan(Xmat[1]/Xmat[0])) + 180
+
+
+# forming the rotation matrix
+theta = kappa; 
+
+m11 = Xmat[0]
+m12 = Xmat[1]
+m13 = 0
+m21 = -Xmat[1]
+m22 = Xmat[0]
+m23 = 0
+m31 = 0
+m32 = 0
+m33 = 1
+
+M = np.array([[m11 , m12 , m13],
+    [m21 , m22 , m23],
+    [m31 , m32 , m33]])
+
+#for i in range(0,4)
+#    deltaX[i] = X[i] - Xmat[2];
+#    deltaY[i] = Y[i] - Xmat[3];
+#    deltaZ[i] = Z[i] - ZL;
+ 
+
+
 
 
 # forming the rotation matrix
