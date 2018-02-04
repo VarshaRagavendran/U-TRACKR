@@ -17,7 +17,10 @@ class timesync(object):
         stdin, stdout, stderr = self.ssh.exec_command('raspivid -t 0 -n -w 1280 -h 720 -fps 30 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000')
 
     def getTimeStamp(self):
-        stdin, stdout, stderr = self.ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S.%N\'')
+        stdin, stdout, stderr = self.ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S\'')
+        # stdin, stdout, stderr = self.ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S.%N\'')
+        # stdin, stdout, stderr = self.ssh.exec_command('./timestamp.sh')
+        # stdin, stdout, stderr = self.ssh.exec_command('while sleep 1; do echo \"$(date \'+%Y-%m-%d %H:%M:%S\')\"; done')
         return stdout.read().rstrip()
 
     def closeSSHClient(self):
