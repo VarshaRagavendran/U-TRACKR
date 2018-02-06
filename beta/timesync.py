@@ -14,7 +14,7 @@ class timesync(object):
 
     def runRaspiVid(self):
         #<todo> raspivid command doesn't return anything to stdout. we need a way of knowing the command was successful or not
-        stdin, stdout, stderr = self.ssh.exec_command('raspivid -t 0 -n -w 1280 -h 720 -fps 30 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000')
+        stdin, stdout, stderr = self.ssh.exec_command('raspivid -t 0 -n -w 1280 -h 720 -fps 30 -rot 90 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000')
 
     def getTimeStamp(self):
         stdin, stdout, stderr = self.ssh.exec_command('date \'+%Y-%m-%d %H:%M:%S\'')
