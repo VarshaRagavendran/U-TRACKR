@@ -26,7 +26,8 @@ class tracker(object):
             if ret:
                 # define the lower and upper boundaries of the "green"
                 # ball in the HSV color space
-                greenLower = np.array([29, 86, 6])
+                # greenLower = np.array([29, 86, 6])
+                greenLower = np.array([20, 70, 6])
                 greenUpper = np.array([64, 255, 255])
 
                 # initialize the list of tracked points, the frame counter,
