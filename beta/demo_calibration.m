@@ -4,11 +4,23 @@
 % calcOmega, calcPhi, calcKappa, calcXL, calcYL, calc ZL
 % Message me if you need any help with knowing the aspects of the code
 
-close all;
-clc;
-clear all;
+%close all;
+%clc;
+%clear all;
 
-cam1 = readtable('data/ImageCoords1234.xlsx');
+function retXYZ = demo_calibration(x11, y11, x21, y21, x31, y31, x41, y41)
+
+%cam1 = readtable('data/ImageCoords1234.xlsx');
+x0 = [1;2;3;4;];
+x1 = [x11; 390; 390.3379517; 390.129425];
+y1 = [y11; 313.5714417; 313.3339844; 313.4033813];
+x2 = [x21; 168; 167.2250061; 168];
+y2 = [y21; 266.5; 264.5; 265.5];
+x3 = [x31; 210.1453857; 210.5; 209.8088226];
+y3 = [y31; 119.9680862; 120; 119.4632339];
+x4 = [x41; 201.3823547; 402.3999939; 402.4137878];
+y4 = [y41; 98.31176758; 98.73750305; 99.13793182];
+cam1 = table(x0, x1, y1, x2, y2, x3, y3, x4, y4);
 %Setting initial parameters EO parameters finding XL,YL,ZL
 omega = 0;
 phi = 0;
@@ -175,5 +187,9 @@ B = [b(1,1) b(1,2) b(1,3) -b(1,4) -b(1,5) -b(1,6);
  calcYL = DELTA(5)+Xmat(4)
  calcZL = DELTA(6)+ ZL
  
- tic; toc 
+ retXYZ = [calcXL, calcYL, calcZL]
+ 
+end
+ 
+%tic; toc 
  
