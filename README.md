@@ -10,7 +10,7 @@ Detects an object's location using photogrammetry. Currently utilizes the Raspbe
 	1. sudo raspi-config > 5 Enable Camera > Enable > Reboot
 	2. put camera module towards the closer end of the ethernet cable on pi, with the blue facing the ethernet.
 
-	"vcgencmd get_camera": Checks if the camera is supported orp detected
+	"vcgencmd get_camera": Checks if the camera is supported or detected
 	pull up the pin connectors, put in the camera, then push it back down.
 
 	3. "raspistill -o image.jpg" for pics
