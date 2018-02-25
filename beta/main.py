@@ -56,11 +56,11 @@ def func9():
 
 if __name__=='__main__':
     Thread(target = func1).start()
-    Thread(target=func2).start()
+    Thread(target = func2).start()
     Thread(target = func3).start()
-    Thread(target=func4).start()
+    Thread(target = func4).start()
     Thread(target = func5).start()
-    Thread(target=func6).start()
+    Thread(target = func6).start()
     Thread(target = func7).start()
-    Thread(target=func8).start()
+    Thread(target = func8).start()
     # Thread(target=func9).start()

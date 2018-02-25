@@ -3,6 +3,7 @@ import time
 from tracker import tracker
 from timesync import timesync
 from checker import checker
+import psutil
 
 class TestUTrackr(unittest.TestCase):
 
@@ -101,7 +102,15 @@ class TestUTrackr(unittest.TestCase):
         #self.assertNotEqual(z,0) # or none?
 
     #PER-01
-    #def testCPUUsage(self):
+    def testCPUUsage(self):
+        utrackr2 = tracker('192.168.0.18')
+        #utrackr4 = tracker('192.168.0.19')
+        #utrackr3 = tracker('192.168.0.20')
+        #utrackr = tracker('192.168.0.21')
+
+        cpu_usage = utrackr.psutil.cpu_percent()
+
+
 
     #PER-02
     #def testFPS(self):
