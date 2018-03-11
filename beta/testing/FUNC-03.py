@@ -2,10 +2,9 @@ import unittest
 import time
 import sys
 sys.path.append("..")
-import tracker
-import timesync
-import checker
-import psutil
+from tracker import tracker
+from timesync import timesync
+from checker import checker
 
 class TestSameTimeStamp(unittest.TestCase):
 
@@ -13,7 +12,7 @@ class TestSameTimeStamp(unittest.TestCase):
     def test_sameTimeStamp(self):
         utrackr2 = tracker('192.168.0.18')
         utrackr4 = tracker('192.168.0.19')
-        utrackr3 = tracker('192.168.0.20')
+        utrackr3 = tracker('192.168.0.31')
         utrackr = tracker('192.168.0.21')
         self.assertEquals(utrackr.timesync.getTimeStamp() ,utrackr2.timesync.getTimeStamp())
         self.assertEquals(utrackr2.timesync.getTimeStamp() ,utrackr3.timesync.getTimeStamp())

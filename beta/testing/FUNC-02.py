@@ -2,10 +2,9 @@ import unittest
 import time
 import sys
 sys.path.append("..")
-import tracker
-import timesync
-import checker
-import psutil
+from tracker import tracker
+from timesync import timesync
+from checker import checker
 
 class TestSSHConnection(unittest.TestCase):
 
@@ -15,7 +14,7 @@ class TestSSHConnection(unittest.TestCase):
             #init of timesync will establish sshconnection
             timesync2 = timesync('192.168.0.18')
             timesync4 = timesync('192.168.0.19')
-            timesync3 = timesync('192.168.0.20')
+            timesync3 = timesync('192.168.0.31')
             timesync1 = timesync('192.168.0.21')
         # possible exceptions thrown by paramiko api
         except AuthenticationException as e:

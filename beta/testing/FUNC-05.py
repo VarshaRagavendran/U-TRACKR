@@ -2,10 +2,9 @@ import unittest
 import time
 import sys
 sys.path.append("..")
-import tracker
-import timesync
-import checker
-import psutil
+from tracker import tracker
+from timesync import timesync
+from checker import checker
 
 class TestXYZCoordinates(unittest.TestCase):
 
@@ -13,7 +12,7 @@ class TestXYZCoordinates(unittest.TestCase):
     def testXYZCoordinates(self):
         utrackr2 = tracker('192.168.0.18')
         utrackr4 = tracker('192.168.0.19')
-        utrackr3 = tracker('192.168.0.20')
+        utrackr3 = tracker('192.168.0.31')
         utrackr = tracker('192.168.0.21')
         time.sleep(1)
         poscalc = checker(utrackr.x, utrackr.y, utrackr2.x, utrackr2.y, utrackr3.x, utrackr3.y, utrackr4.x, utrackr4.y)

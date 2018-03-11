@@ -2,10 +2,9 @@ import unittest
 import sys
 import time
 sys.path.append("..")
-import tracker
-import timesync
-import checker
-import psutil
+from tracker import tracker
+from timesync import timesync
+from checker import checker
 
 class TestObjectIdentified(unittest.TestCase):
 
@@ -14,7 +13,7 @@ class TestObjectIdentified(unittest.TestCase):
         try:
             utrackr2 = tracker('192.168.0.18')
             utrackr4 = tracker('192.168.0.19')
-            utrackr3 = tracker('192.168.0.20')
+            utrackr3 = tracker('192.168.0.31')
             utrackr = tracker('192.168.0.21')
             #verification that opencv runs smoothly
             utrackr.outputFrame("cam1")
