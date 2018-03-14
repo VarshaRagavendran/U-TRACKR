@@ -6,10 +6,10 @@ close all;
 
 %% Importing data sets
 % Importing data as table to be easily manipulated 
-SR1 = readtable('ImageCoords1.xlsx');
-SR2 = readtable('ImageCoords2.xlsx');
-SR3 = readtable('ImageCoords3.xlsx');
-SR4 = readtable('ImageCoords4.xlsx');
+SR1 = readtable('data/ImageCoords1.xlsx');
+SR2 = readtable('data/ImageCoords2.xlsx');
+SR3 = readtable('data/ImageCoords3.xlsx');
+SR4 = readtable('data/ImageCoords4.xlsx');
 
 %SR1
 cam1_pixel_X = mean(table2array(SR1(:,2)));
@@ -74,11 +74,12 @@ cam4_pixel_Y4 = mean(table2array(SR4(:,9)));
 
 
 %% Pixel Coordinates to Image Coordinates 
-
+% based on Camera Module V2: https://www.raspberrypi.org/documentation/hardware/camera/README.md
 f = 3.04;
 pixSize = 0.00112;
-width_Of_Image = 1280/2;
-height_Of_Image = 720/2; 
+% screen size measured on the laptop
+width_Of_Image = 600/2;
+height_Of_Image = 340/2; 
 
 % SR1
 for i = 1:length(cam1_pixel_X)

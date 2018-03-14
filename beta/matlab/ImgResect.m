@@ -113,12 +113,19 @@ while counter < 30
     
 end
 
-counter
 omegaL = (180/pi)*omega;
 phiL = (180/pi)*phi;
 kappaL = (180/pi)*kappa;
 XT = XL;
 YT = YL;
 ZT = ZL;
+
+counter
+XT
+YT
+ZT
+omegaL
+phiL
+kappaL
 
 end
