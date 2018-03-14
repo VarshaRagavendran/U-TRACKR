@@ -37,18 +37,19 @@ DELTA=[1 1 1 1 1 1 1];
 %% b matrix
 count = size(cam1_Image_Coords,1);
 counter = 0
-while max(abs(DELTA)) > 0.01
+% while max(abs(DELTA)) > 0.01
+while counter < 30
     counter = counter+1;
     
-    m11 = cosd(phi)*cosd(kappa);
-    m12 = sind(omega)*sind(phi)*cosd(kappa)+cosd(omega)*sind(kappa);
-    m13 = -cosd(omega)*sind(phi)*cosd(kappa)+sind(omega)*sind(kappa);
-    m21 = -cosd(phi)*sind(kappa);
-    m22 = -sind(omega)*sind(phi)*sind(kappa)+cosd(omega)*cosd(kappa);
-    m23 = cosd(omega)*sind(phi)*cosd(kappa)+sind(omega)*sind(kappa);
-    m31 = sind(phi);
-    m32 = -sind(omega)*cosd(phi);
-    m33 = cosd(omega)*cosd(phi);
+    m11 = cos(phi)*cos(kappa);
+    m12 = sin(omega)*sin(phi)*cos(kappa)+cos(omega)*sin(kappa);
+    m13 = -cos(omega)*sin(phi)*cos(kappa)+sin(omega)*sin(kappa);
+    m21 = -cos(phi)*sin(kappa);
+    m22 = -sin(omega)*sin(phi)*sin(kappa)+cos(omega)*cos(kappa);
+    m23 = cos(omega)*sin(phi)*cos(kappa)+sin(omega)*sin(kappa);
+    m31 = sin(phi);
+    m32 = -sin(omega)*cos(phi);
+    m33 = cos(omega)*cos(phi);
     
     M = [m11 m12 m13;
         m21 m22 m23;
@@ -74,14 +75,14 @@ while max(abs(DELTA)) > 0.01
     %% B matrix
     for i = 1:1:count
         b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dy(i)+m32*dz(i))-Q(i)*(-m13*dy(i)+m12*dz(i)));
-        b(i,2) = (f/Q(i)^2)*((R(i)*(cosd(phi)*dx(i)+sind(omega)*sind(phi)*dy(i)-cosd(omega)*sind(phi)*dz(i))- Q(i)*(-sind(phi)*cosd(kappa)*dx(i)+sind(omega)*cosd(phi)*cosd(kappa)*dy(i)-cosd(omega)*cosd(phi)*cosd(kappa)*dz(i))));
+        b(i,2) = (f/Q(i)^2)*((R(i)*(cos(phi)*dx(i)+sin(omega)*sin(phi)*dy(i)-cos(omega)*sin(phi)*dz(i))- Q(i)*(-sin(phi)*cos(kappa)*dx(i)+sin(omega)*cos(phi)*cos(kappa)*dy(i)-cos(omega)*cos(phi)*cos(kappa)*dz(i))));
         b(i,3) = (-f/Q(i))*(m21*dx(i)+m22*dy(i)+m23*dz(i));
         b(i,4) = (f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
         b(i,5) = (f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
         b(i,6) = (f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
         
         b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dy(i)+m32*dz(i))-Q(i)*(-m23*dy(i)+m22*dz(i)));
-        b(i,8) = (f/Q(i)^2)*((S(i)*(cosd(phi)*dx(i)+sind(omega)*sind(phi)*dy(i)-cosd(omega)*sind(phi)*dz(i))- Q(i)*(-sind(phi)*cosd(kappa)*dx(i)+sind(omega)*cosd(phi)*cosd(kappa)*dy(i)-cosd(omega)*cosd(phi)*cosd(kappa)*dz(i))));
+        b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dx(i)+sin(omega)*sin(phi)*dy(i)-cos(omega)*sin(phi)*dz(i))- Q(i)*(-sin(phi)*cos(kappa)*dx(i)+sin(omega)*cos(phi)*cos(kappa)*dy(i)-cos(omega)*cos(phi)*cos(kappa)*dz(i))));
         b(i,9) = (f/Q(i))*(m11*dx(i)+m12*dy(i)+m13*dz(i));
         b(i,10) = (f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
         b(i,11) = (f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
@@ -121,8 +122,3 @@ YT = YL;
 ZT = ZL;
 
 end
-
-
-
-
-
