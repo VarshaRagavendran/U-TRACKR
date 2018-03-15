@@ -61,9 +61,9 @@ while counter < 10
         m31 m32 m33];
     
     for i = 1:1:count
-        dx(i)=XL-X(i);
-        dy(i)=YL-Y(i);
-        dz(i)=ZL-Z(i);
+        dx(i)=X(i)-XL;
+        dy(i)=Y(i)-YL;
+        dz(i)=Z(i)-ZL;
         R(i) = m11*(X(i)-XL)+m12*(Y(i)-YL)+m13*(Z(i)-ZL);
         S(i) = m21*(X(i)-XL)+m22*(Y(i)-YL)+m23*(Z(i)-ZL);
         Q(i) = m31*(X(i)-XL)+m32*(Y(i)-YL)+m33*(Z(i)-ZL);
