@@ -34,11 +34,15 @@ Z  = cam1_Space_Coords (:,3);
 %% initial orientation parameters
 DELTA=[1 1 1 1 1 1 1];
 
+XL = x0;
+YL = y0;
+ZL = z0;
+
 %% b matrix
 count = size(cam1_Image_Coords,1);
-counter = 0
-% while max(abs(DELTA)) > 0.01
-while counter < 30
+counter = 0;
+while  max(abs(DELTA)) >.00001
+    %min(abs(DELTA)) > 0.01
     counter = counter+1;
     
     m11 = cos(phi)*cos(kappa);
@@ -56,12 +60,12 @@ while counter < 30
         m31 m32 m33];
     
     for i = 1:1:count
-        dx(i)=x0-X(i);
-        dy(i)=y0-Y(i);
-        dz(i)=z0-Z(i);
-        R(i) = m11*(X(i)-x0)+m12*(Y(i)-y0)+m13*(Z(i)-z0);
-        S(i) = m21*(X(i)-x0)+m22*(Y(i)-y0)+m23*(Z(i)-z0);
-        Q(i) = m31*(X(i)-x0)+m32*(Y(i)-y0)+m33*(Z(i)-z0);
+        dx(i)=XL-X(i);
+        dy(i)=YL-Y(i);
+        dz(i)=ZL-Z(i);
+        R(i) = m11*(X(i)-XL)+m12*(Y(i)-YL)+m13*(Z(i)-ZL);
+        S(i) = m21*(X(i)-XL)+m22*(Y(i)-YL)+m23*(Z(i)-ZL);
+        Q(i) = m31*(X(i)-XL)+m32*(Y(i)-YL)+m33*(Z(i)-ZL);
     end
     
     %% Calculate the ground coordinates of the ground control points J,K from image coordinates
@@ -101,31 +105,25 @@ while counter < 30
     % +b19 change
     %B matrix - changes
     
-    DELTA = inv(B'*B)*(B'*eps);
+    DELTA = inv(B'*B)*(B'*eps)
     
-    omega =  DELTA(1)+ omega ;
-    phi = DELTA(2)+ phi;
-    kappa = DELTA(3)+ kappa;
-    XL = DELTA(4)+ x0;
-    YL = DELTA(5)+ y0;
-    ZL = DELTA(6)+ z0;
+    omega =  DELTA(1)+ omega 
+    phi = DELTA(2)+ phi
+    kappa = DELTA(3)+ kappa
+    XL = DELTA(4)+ x0
+    YL = DELTA(5)+ y0
+    ZL = DELTA(6)+ z0
     
     
 end
 
-omegaL = (180/pi)*omega;
-phiL = (180/pi)*phi;
-kappaL = (180/pi)*kappa;
-XT = XL;
-YT = YL;
-ZT = ZL;
-
 counter
-XT
-YT
-ZT
-omegaL
-phiL
-kappaL
+
+omegaL = (180/pi)*omega
+phiL = (180/pi)*phi
+kappaL = (180/pi)*kappa
+XT = XL
+YT = YL
+ZT = ZL
 
 end
