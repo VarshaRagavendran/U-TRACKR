@@ -41,7 +41,8 @@ ZL = z0;
 %% b matrix
 count = size(cam1_Image_Coords,1);
 counter = 0;
-while  max(abs(DELTA)) >.00001
+while counter < 10
+%max(abs(DELTA)) >.00001
     %min(abs(DELTA)) > 0.01
     counter = counter+1;
     
