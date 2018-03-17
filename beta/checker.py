@@ -33,9 +33,9 @@ class checker(object):
         # least 4 with xyz needed in order to perform space resection
 
         f = 3.04 #focal length
-        pixSize = 1.12; #pixel size of camera
-        width_Of_Image = 1280/2;
-        height_Of_Image = 720/2;
+        pixSize = 0.00112; #pixel size of camera
+        width_Of_Image = 600/2;
+        height_Of_Image = 340/2;
 
         # X,Y of 4 cameras of object
         # 1st pass: the markers on the frame
@@ -54,10 +54,10 @@ class checker(object):
 
         # X,Y,Z of markers on the frame, predetermined, never changes
         # 4 markers on the frame, these coordinates will always be the same for each camera
-        cam1_Space_Coords = np.array([[6.6817 , 84.9129 , 106.9060],
-             [0.9649 , 0.3729 , 106.8558],
-             [77.3635 , 3.2707 , 106.9076],
-             [83.8137 , 87.8490 , 106.8561]])
+        cam1_Space_Coords = np.array([[44 , 17.6 , 0],
+             [70.4 , 44 , 0],
+             [44 , 70.4 , 0],
+             [17.6 , 44 , 0]])
 
         # Estimate ZL =
         # image coords

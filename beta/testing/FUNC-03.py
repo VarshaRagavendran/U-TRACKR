@@ -1,10 +1,7 @@
 import unittest
-import time
 import sys
 sys.path.append("..")
 from tracker import tracker
-from timesync import timesync
-from checker import checker
 
 class TestSameTimeStamp(unittest.TestCase):
 

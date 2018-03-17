@@ -75,8 +75,12 @@ cam4_pixel_Y4 = mean(table2array(SR4(:,9)));
 
 %% Pixel Coordinates to Image Coordinates 
 % based on Camera Module V2: https://www.raspberrypi.org/documentation/hardware/camera/README.md
+% camera focal length (mm)
 f = 3.04;
-pixSize = 0.00112;
+% pixSize (mm)
+% camera pixSize = 0.00112;
+% laptop pixSize with resolution 3840 x 2160, screen size 15.6" = 0.089 http://lcdtech.info/en/data/pixel.size.htm
+pixSize = 0.089;
 % screen size measured on the laptop
 width_Of_Image = 600/2;
 height_Of_Image = 340/2; 

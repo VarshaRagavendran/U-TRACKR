@@ -1,10 +1,7 @@
 import unittest
-import time
 import sys
 sys.path.append("..")
-from tracker import tracker
 from timesync import timesync
-from checker import checker
 
 class TestWifiConnection(unittest.TestCase):
 
@@ -22,8 +19,6 @@ class TestWifiConnection(unittest.TestCase):
         self.assertEquals(stdout1.read().rstrip(), stdout2.read().rstrip())
         self.assertEquals(stdout2.read().rstrip(), stdout3.read().rstrip())
         self.assertEquals(stdout3.read().rstrip(), stdout4.read().rstrip())
-        #todo: check with computer's wifi
-
 
 if __name__ == '__main__':
     unittest.main()
