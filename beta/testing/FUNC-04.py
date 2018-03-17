@@ -30,6 +30,11 @@ class TestObjectIdentified(unittest.TestCase):
         time.sleep(5)
 
         # Identification of object's X and Y coordinates from frame is not 0.
+        print "RPi 1 (x,y): (" + str(utrackr.x) + "," + str(utrackr.y) + ")"
+        print "RPi 2 (x,y): (" + str(utrackr2.x) + "," + str(utrackr2.y) + ")"
+        print "RPi 3 (x,y): (" + str(utrackr3.x) + "," + str(utrackr3.y) + ")"
+        print "RPi 4 (x,y): (" + str(utrackr4.x) + "," + str(utrackr4.y) + ")"
+
         self.assertNotEqual(utrackr.x, 0)
         self.assertNotEqual(utrackr.y, 0)
 

@@ -11,10 +11,17 @@ class TestSameTimeStamp(unittest.TestCase):
         utrackr4 = tracker('192.168.0.19')
         utrackr3 = tracker('192.168.0.31')
         utrackr = tracker('192.168.0.21')
-        self.assertEquals(utrackr.timesync.getTimeStamp() ,utrackr2.timesync.getTimeStamp())
-        self.assertEquals(utrackr2.timesync.getTimeStamp() ,utrackr3.timesync.getTimeStamp())
-        self.assertEquals(utrackr3.timesync.getTimeStamp() ,utrackr4.timesync.getTimeStamp())
-
+        rpiOneTimestamp = utrackr.timesync.getTimeStamp()
+        rpiTwoTimeStamp = utrackr2.timesync.getTimeStamp()
+        rpiThreeTimeStamp = utrackr3.timesync.getTimeStamp()
+        rpiFourTimeStamp = utrackr4.timesync.getTimeStamp()
+        print "RPi Timestamp 1: " + rpiOneTimestamp
+        print "RPi Timestamp 2: " + rpiTwoTimeStamp
+        print "RPi Timestamp 3: " + rpiThreeTimeStamp
+        print "RPi Timestamp 4: " + rpiFourTimeStamp
+        self.assertEquals(rpiOneTimestamp, rpiTwoTimeStamp)
+        self.assertEquals(rpiTwoTimeStamp, rpiThreeTimeStamp)
+        self.assertEquals(rpiThreeTimeStamp, rpiFourTimeStamp)
 
 if __name__ == '__main__':
     unittest.main()
