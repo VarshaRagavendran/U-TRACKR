@@ -8,19 +8,33 @@ function [XT,YT,ZT,omegaL, phiL, kappaL] = ImgResect(x0,y0,z0,omega,phi,kappa)
 %cam1_Image_Coords= [cam1_Image_X(:), cam1_Image_Y(:)];
 
 cam1_Image_Coords=[
-      0.10038     -0.16012
-     -0.16785     -0.13547
-     -0.13031     0.071987
-     0.091838     0.061661
+86.421 -83.977;
+-100.916 92.582;
+-98.322	-89.161;
+78.812	98.123
     ];
+%{    
+0.1011   -0.0300;
+   -1.6686    1.0540;
+   -1.6311    1.2614;
+   -1.4090    1.2511
+%}
 
-f = 3.04;
+f = 152.916;
 
 cam1_Space_Coords = [
-    44 17.6 6.35;
-    70.4 44 6.35;
-    44 70.4 6.35;
-    17.6 44 6.35];
+1268.102 1455.027 22.606;
+732.181	545.344	22.299;
+1454.553 731.666 22.649;
+545.245 1268.232 22.336
+];
+    %{
+    440 176 0;
+    704 440 0;
+    440 704 0;
+    176 440 0
+%}
+
 
 
 %% Estimate ZL =
@@ -46,7 +60,7 @@ counter = 1;
 % setting the tolerance
 tor = 0.00000000056;
 
-while  counter > tor
+while  counter < 3
     %min(abs(DELTA)) > 0.01
     %counter = counter+1;
     
@@ -89,16 +103,16 @@ while  counter > tor
         b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
         b(i,2) = (f/Q(i)^2)*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
         b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
-        b(i,4) = -(f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
-        b(i,5) = -(f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
-        b(i,6) = -(f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
+        b(i,4) = (f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
+        b(i,5) = (f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
+        b(i,6) = (f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
         
         b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m23*dY(i)+m22*dZ(i)));
         b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
         b(i,9) = (f/Q(i))*(m11*dX(i)+m12*dY(i)+m13*dZ(i));
-        b(i,10) = -(f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
-        b(i,11) = -(f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
-        b(i,12) = -(f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        b(i,10) = (f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
+        b(i,11) = (f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
+        b(i,12) = (f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
     end
     
     B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
