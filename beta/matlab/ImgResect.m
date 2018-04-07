@@ -7,33 +7,49 @@ function [XT,YT,ZT,omegaL, phiL, kappaL] = ImgResect(x0,y0,z0,omega,phi,kappa)
 
 %cam1_Image_Coords= [cam1_Image_X(:), cam1_Image_Y(:)];
 
+%{
 cam1_Image_Coords=[
 0.1011   -0.0300;
    -1.6686    1.0540;
    -1.6311    1.2614;
    -1.4090    1.2511
     ];
-%{      
+      
     86.421 -83.977;
 -100.916 92.582;
 -98.322	-89.161;
 78.812	98.123
 
 %}
+cam1_Image_Coords=[
+     12.472    -3.773;
+    12.344     2.280;
+    9.080    -7.899;
+    7.983     7.573
+    ];
+
+cam1_Space_Coords = [
+       5530.8       3156.7       6576.1;
+       6317.8       2926.2       6539.4;
+       4743.9         2946       6553.2;
+       6814.7       2416.5       6466.8
+    ];
+
+    %{
 cam1_Space_Coords = [
     440 176 0;
     704 440 0;
     440 704 0;
     176 440 0
 ];
-    %{
+
 1268.102 1455.027 22.606;
 732.181	545.344	22.299;
 1454.553 731.666 22.649;
 545.245 1268.232 22.336
 %}
-
-f = 3.04;
+ f = 28.556;   
+%f = 3.04;
 
 %% Estimate ZL =
 % image coords
@@ -58,9 +74,10 @@ counter = 1;
 % setting the tolerance
 tor = 0.00000000056;
 
-while  counter < 3
+while  counter < 20
     %min(abs(DELTA)) > 0.01
-    %counter = counter+1;
+    max(abs(DELTA))
+    counter = counter+1;
     
     m11 = cos(phi)*cos(kappa);
     m12 = sin(omega)*sin(phi)*cos(kappa)+cos(omega)*sin(kappa);
@@ -79,38 +96,38 @@ while  counter < 3
     for i = 1:1:count
         % difference
         dX(i)=X(i)-XL;
-        dY(i)=Y(i)-YL;
+        dY(i)=YL-Y(i);
         dZ(i)=Z(i)-ZL;
         
         % RSQ
-        R(i) = m11*(X(i)-XL)+m12*(Y(i)-YL)+m13*(Z(i)-ZL);
-        S(i) = m21*(X(i)-XL)+m22*(Y(i)-YL)+m23*(Z(i)-ZL);
-        Q(i) = m31*(X(i)-XL)+m32*(Y(i)-YL)+m33*(Z(i)-ZL);
+        Q(i) = m31*(X(i)-XL)+m32*(Z(i)-ZL)+m33*(YL-Y(i));
+        R(i) = m11*(X(i)-XL)+m12*(Z(i)-ZL)+m13*(YL-Y(i));
+        S(i) = m21*(X(i)-XL)+m22*(Z(i)-ZL)+m23*(YL-Y(i));
     end
     
     %% Calculate the ground coordinates of the ground control points J,K from image coordinates
     for i = 1:1:count
-        J(i) = -x(i) +(R(i)*f)/Q(i);
-        K(i) = -y(i) +(S(i)*f)/Q(i);
+        J(i) = -(Q(i)*x(i) +(R(i)*f))/Q(i);
+        K(i) = -(Q(i)*y(i) +(S(i)*f))/Q(i);
     end
     
     eps = [J(1);K(1);J(2);K(2);J(3);K(3);J(4);K(4)];
     
     %% B matrix
     for i = 1:1:count
-        b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
-        b(i,2) = (f/Q(i)^2)*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
+        b(i,1) = (f/(Q(i)^2))*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
+        b(i,2) = (f/(Q(i)^2))*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
         b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
-        b(i,4) = (f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
-        b(i,5) = (f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
-        b(i,6) = (f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
+        b(i,4) = (-f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
+        b(i,5) = (-f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
+        b(i,6) = (-f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
         
         b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m23*dY(i)+m22*dZ(i)));
-        b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
+        b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(sin(phi)*sin(kappa)*dX(i)-sin(omega)*cos(phi)*sin(kappa)*dY(i)+cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
         b(i,9) = (f/Q(i))*(m11*dX(i)+m12*dY(i)+m13*dZ(i));
-        b(i,10) = (f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
-        b(i,11) = (f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
-        b(i,12) = (f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        b(i,10) = (-f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
+        b(i,11) = (-f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
+        b(i,12) = (-f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
     end
     
     B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
@@ -124,14 +141,15 @@ while  counter < 3
     
     %B matrix - changes
     DELTA = inv(B'*B)*(B'*eps)
-    counter = rssq(DELTA);
-    
+    max(abs(DELTA))
+    %counter = rssq(DELTA);
+    %counter
     omega =  DELTA(1)+ omega
     phi = DELTA(2)+ phi
     kappa = DELTA(3)+ kappa
     XL = DELTA(4)+ XL
-    YL = DELTA(5)+ YL
-    ZL = DELTA(6)+ ZL
+    YL = DELTA(6)+ YL
+    ZL = DELTA(5)+ ZL
     
     
 end
@@ -141,6 +159,6 @@ phiL = (180/pi)*phi
 kappaL = (180/pi)*kappa
 XT = XL
 YT = YL
-ZT = ZL/3
+ZT = ZL
 
 end
