@@ -115,19 +115,45 @@ while  counter < 20
     
     %% B matrix
     for i = 1:1:count
-        b(i,1) = (f/(Q(i)^2))*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
-        b(i,2) = (f/(Q(i)^2))*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
-        b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
-        b(i,4) = (-f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
-        b(i,5) = (-f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
-        b(i,6) = (-f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
+        %b(i,1) = (f/(Q(i)^2))*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
+        %xp = image coordinates = x
+        %yp = image coordinates = y
+        b(i,1)=(x(i)/Q(i))*(-m33*dZ(i)+m32*dY(i))+(f/Q(i))*(-m13*dZ(i)+m12*dY(i));
         
-        b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m23*dY(i)+m22*dZ(i)));
-        b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(sin(phi)*sin(kappa)*dX(i)-sin(omega)*cos(phi)*sin(kappa)*dY(i)+cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
-        b(i,9) = (f/Q(i))*(m11*dX(i)+m12*dY(i)+m13*dZ(i));
-        b(i,10) = (-f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
-        b(i,11) = (-f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
-        b(i,12) = (-f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        %b(i,2) = (f/(Q(i)^2))*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
+        b(i,2)=(x(i)/Q(i))*(dX(i)*cos(phi)+dZ(i)*(sin(omega)*sin(phi))+dY(i)*(-sin(phi)*cos(omega)))+...
+            (f/Q(i))*(dX(i)*(-sin(phi)*cos(kappa))+dZ(i)*(sin(omega)*cos(phi)*cos(kappa))+dY(i)*(-cos(omega)*cos(phi)*cos(kappa)));
+        
+        %b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
+        b(i,3)=(f/Q(i))*(m21*dX(i)+m22*dZ(i)+m22*dY(i));
+        
+        %b(i,4) = (-f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
+        b(i,4)=-((x(i)/Q(i))*m31+(f/Q(i))*m11);
+        
+        %b(i,5) = (-f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
+        b(i,5)=-((x(i)/Q(i))*m32+(f/Q(i))*m12);
+        
+        %b(i,6) = (-f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
+        b(i,6)= ((x(i)/Q(i))*m33+(f/Q(i))*m13);
+        
+        %b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m23*dY(i)+m22*dZ(i)));
+        b(i,7)=(y(i)/Q(i))*(-m33*dZ(i)+m32*dY(i))+(f/Q(i))*(-m23*dZ(i)+m22*dY(i));
+        
+        %b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(sin(phi)*sin(kappa)*dX(i)-sin(omega)*cos(phi)*sin(kappa)*dY(i)+cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
+        b(i,8)=(y(i)/Q(i))*(dX(i)*cos(phi)+dZ(i)*(sin(omega)*sin(phi))+dY(i)*(-sin(phi)*cos(omega)))+...
+            (f/Q(i))*(dX(i)*(sin(phi)*sin(kappa))+dZ(i)*(-sin(omega)*cos(phi)*sin(kappa))+dY(i)*(cos(omega)*cos(phi)*sin(kappa)));
+        
+        %b(i,9) = (f/Q(i))*(m11*dX(i)+m12*dY(i)+m13*dZ(i));
+        b(i,9)=(f/Q(i))*(-m11*dX(i)-m12*dZ(i)-m13*dY(i));
+        
+        %b(i,10) = (-f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
+        b(i,10)=-((y(i)/Q(i))*m33+(f/Q(i))*m22);
+        
+        %b(i,11) = (-f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
+        b(i,11)=-((y(i)/Q(i))*m32+(f/Q(i))*m22);
+        
+        %b(i,12) = (-f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        b(i,12)= ((y(i)/Q(i))*m33+(f/Q(i))*m23);
     end
     
     B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
