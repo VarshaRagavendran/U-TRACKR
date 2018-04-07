@@ -74,7 +74,7 @@ counter = 1;
 % setting the tolerance
 tor = 0.00000000056;
 
-while  counter < 20
+while  max(abs(DELTA)) >.00001
     %min(abs(DELTA)) > 0.01
     max(abs(DELTA))
     counter = counter+1;
@@ -125,7 +125,7 @@ while  counter < 20
             (f/Q(i))*(dX(i)*(-sin(phi)*cos(kappa))+dZ(i)*(sin(omega)*cos(phi)*cos(kappa))+dY(i)*(-cos(omega)*cos(phi)*cos(kappa)));
         
         %b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
-        b(i,3)=(f/Q(i))*(m21*dX(i)+m22*dZ(i)+m22*dY(i));
+        b(i,3)=(f/Q(i))*(m21*dX(i)+m22*dZ(i)+m23*dY(i));
         
         %b(i,4) = (-f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
         b(i,4)=-((x(i)/Q(i))*m31+(f/Q(i))*m11);
@@ -147,7 +147,7 @@ while  counter < 20
         b(i,9)=(f/Q(i))*(-m11*dX(i)-m12*dZ(i)-m13*dY(i));
         
         %b(i,10) = (-f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
-        b(i,10)=-((y(i)/Q(i))*m33+(f/Q(i))*m22);
+        b(i,10)=-((y(i)/Q(i))*m31+(f/Q(i))*m21);
         
         %b(i,11) = (-f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
         b(i,11)=-((y(i)/Q(i))*m32+(f/Q(i))*m22);
