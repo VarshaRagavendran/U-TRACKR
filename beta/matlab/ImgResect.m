@@ -21,6 +21,8 @@ cam1_Image_Coords=[
 78.812	98.123
 
 %}
+
+% Example Image Coords
 cam1_Image_Coords=[
      12.472    -3.773;
     12.344     2.280;
@@ -28,6 +30,7 @@ cam1_Image_Coords=[
     7.983     7.573
     ];
 
+% Example Space Coords
 cam1_Space_Coords = [
        5530.8       3156.7       6576.1;
        6317.8       2926.2       6539.4;
@@ -35,21 +38,27 @@ cam1_Space_Coords = [
        6814.7       2416.5       6466.8
     ];
 
-    %{
-cam1_Space_Coords = [
-    440 176 0;
-    704 440 0;
-    440 704 0;
-    176 440 0
-];
+%Our Image Coordinates
+% cam1_Image_Coords=[
+% 0.1011   -0.0300;
+%    -1.6686    1.0540;
+%    -1.6311    1.2614;
+%    -1.4090    1.2511
+%     ];
 
-1268.102 1455.027 22.606;
-732.181	545.344	22.299;
-1454.553 731.666 22.649;
-545.245 1268.232 22.336
-%}
- f = 28.556;   
-%f = 3.04;
+%Our space coordinates
+% cam1_Space_Coords = [
+%     440 176 0;
+%     704 440 0;
+%     440 704 0;
+%     176 440 0
+% ];
+
+% Example focal length
+f = 28.556;
+
+% Our focal length
+% f = 3.04;
 
 %% Estimate ZL =
 % image coords
@@ -74,7 +83,7 @@ counter = 1;
 % setting the tolerance
 tor = 0.00000000056;
 
-while  max(abs(DELTA)) >.00001
+while  max(abs(DELTA)) >.00000001
     %min(abs(DELTA)) > 0.01
     max(abs(DELTA))
     counter = counter+1;
