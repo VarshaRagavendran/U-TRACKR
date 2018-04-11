@@ -7,50 +7,50 @@ function [XT,YT,ZT,omegaL, phiL, kappaL] = OurImgResect(x0,y0,z0,omega,phi,kappa
 
 %cam1_Image_Coords= [cam1_Image_X(:), cam1_Image_Y(:)];
 
-% % Example Image Coords
-% cam1_Image_Coords=[
-%      12.472    -3.773;
-%     12.344     2.280;
-%     9.080    -7.899;
-%     7.983     7.573
-%     ];
-% 
-% % Example Space Coords
-% cam1_Space_Coords = [
-%        5530.8       3156.7       6576.1;
-%        6317.8       2926.2       6539.4;
-%        4743.9         2946       6553.2;
-%        6814.7       2416.5       6466.8
-%     ];
-% 
-% % Example focal length
-% f = 28.556;
-
-% Textbook example Image Coordinates
+% Example Image Coords
 cam1_Image_Coords=[
-   -1.7406    1.4745;
-   -1.9504    1.2767;
-   -1.9475    1.4803;
-   -1.7491    1.2705
+     12.472    -3.773;
+    12.344     2.280;
+    9.080    -7.899;
+    7.983     7.573
     ];
 
-% Textbook example space coordinates
+% Example Space Coords
 cam1_Space_Coords = [
-    1268.102 1455.027 22.606;
-    732.181 545.344 22.299;
-    1454.553 731.666 22.649;
-    545.245 1268.232 22.336
-];
+       5530.8       3156.7       6576.1;
+       6317.8       2926.2       6539.4;
+       4743.9         2946       6553.2;
+       6814.7       2416.5       6466.8
+    ];
 
-% Textbook example focal length
-f = 152.916;
+% Example focal length
+f = 28.556;
+
+% % Textbook example Image Coordinates
+% cam1_Image_Coords=[
+%    -1.7406    1.4745;
+%    -1.9504    1.2767;
+%    -1.9475    1.4803;
+%    -1.7491    1.2705
+%     ];
+% 
+% % Textbook example space coordinates
+% cam1_Space_Coords = [
+%     1268.102 1455.027 22.606;
+%     732.181 545.344 22.299;
+%     1454.553 731.666 22.649;
+%     545.245 1268.232 22.336
+% ];
+% 
+% % Textbook example focal length
+% f = 152.916;
 
 % % Our Image Coordinates
 % cam1_Image_Coords=[
-% 0.1011   -0.0300;
-%    -1.6686    1.0540;
-%    -1.6311    1.2614;
-%    -1.4090    1.2511
+%     0.5359   -0.5079;
+%     0.4833    0.4676;
+%    -0.3399    0.3758;
+%    -0.2750   -0.4553
 %     ];
 % 
 % % Our space coordinates

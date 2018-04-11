@@ -6,7 +6,7 @@ close all;
 
 %% Importing data sets
 % Importing data as table to be easily manipulated 
-SR = readtable('data/TextbookImageCoords1234.xlsx');
+SR = readtable('data/NewImageCoords1234.xlsx');
 
 
 %SR1

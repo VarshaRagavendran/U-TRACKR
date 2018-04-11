@@ -5,8 +5,9 @@ clc;
 clear all;
 close all;
 
-% Our data
-%[X,Y,Z,O,P,K] = ImgResect(0,88,90,0,degtorad(45),degtorad(45))
+% % Our data
+% [X,Y,Z,O,P,K] = ImgResect(0,88,90,0,degtorad(45),degtorad(45))
+% [X2,Y2,Z2,O2,P2,K2] = OurImgResect(0,88,90,0,degtorad(45),degtorad(45))
 
 % % Example
 % [X,Y,Z,O,P,K] = ImgResect(7700,1817,8900,degtorad(90),degtorad(-33),degtorad(92));
