@@ -54,8 +54,6 @@ end
 cam_Image_Coords
 
 %% 3. Space Resection by Collinearity - Initialization
-% Based off of Elements of Photogrammetry with Applications in GIS (4th
-% edition) Chapter 11 & Appendix D
 
 % Image Coords (mm)
 x  = cam_Image_Coords(:,1);
@@ -87,6 +85,7 @@ count = size(cam_Image_Coords,1);
 while max(abs(DELTA)) >.00000001
     counter = counter + 1;
     
+    % Elements of Photogrammetry... - Appendix D9. (D-27) m-matrix
     m11 = cos(phi)*cos(kappa);
     m12 = sin(omega)*sin(phi)*cos(kappa)+cos(omega)*sin(kappa);
     m13 = -cos(omega)*sin(phi)*cos(kappa)+sin(omega)*sin(kappa);
@@ -101,22 +100,25 @@ while max(abs(DELTA)) >.00000001
         m21 m22 m23;
         m31 m32 m33];
     
+    % Elements of Photogrammetry... - Appendix D3. (D-26) rotation formulas
     for i = 1:1:count
-        % difference
         dX(i)=X(i)-XL;
         dY(i)=Y(i)-YL;
         dZ(i)=Z(i)-ZL;
-        
-        % RSQ
-        R(i) = m11*(X(i)-XL)+m12*(Y(i)-YL)+m13*(Z(i)-ZL);
-        S(i) = m21*(X(i)-XL)+m22*(Y(i)-YL)+m23*(Z(i)-ZL);
-        Q(i) = m31*(X(i)-XL)+m32*(Y(i)-YL)+m33*(Z(i)-ZL);
+        R(i) = (m11*dX(i)) + (m12*dY(i)) + (m13*dZ(i));
+        S(i) = (m21*dX(i)) + (m22*dY(i)) + (m23*dZ(i));
+        Q(i) = (m31*dX(i)) + (m32*dY(i)) + (m33*dZ(i));
     end
     
+    % Elements of Photogrammetry... - Chapter 11.4. Collinearity condition
     for i = 1:1:count
-        J(i) = -x(i) +(R(i)*f)/Q(i);
-        K(i) = -y(i) +(S(i)*f)/Q(i);
+        %J(i) = -x(i) +(R(i)*f)/Q(i);
+        %K(i) = -y(i) +(S(i)*f)/Q(i);
+        J(i) = x(i) - (f*(R(i)/Q(i)));
+        K(i) = y(i) - (f*(S(i)/Q(i)));
     end
+    
+    %??
     
     eps = [J(1);K(1);J(2);K(2);J(3);K(3);J(4);K(4)];
     
@@ -160,9 +162,13 @@ end
 
 %% 5. Output
 
-omegaL = (180/pi)*omega
-phiL = (180/pi)*phi
-kappaL = (180/pi)*kappa
+omegaL = (180/pi) * omega
+phiL = (180/pi) * phi
+kappaL = (180/pi) * kappa
 XT = XL
 YT = YL
 ZT = ZL/3
+
+resection_Coords = [XT, YT, ZT]
+orientation_Angles = [omegaL, phiL, kappaL]
+counter
