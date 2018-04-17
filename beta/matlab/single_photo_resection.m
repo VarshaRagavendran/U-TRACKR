@@ -164,7 +164,7 @@ phiL = (180/pi) * phi
 kappaL = (180/pi) * kappa
 XT = XL
 YT = YL
-ZT = ZL/3
+ZT = ZL
 
 resection_Coords = [XT, YT, ZT]
 orientation_Angles = [omegaL, phiL, kappaL]
