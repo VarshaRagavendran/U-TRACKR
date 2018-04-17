@@ -31,7 +31,7 @@ cam_Ground_Control_Coords=[
     0.176 0.44 0];
 
 % initial exterior orientation coords parameters (m)
-x0 = 0.05;
+x0 = 0;
 y0 = 0.8;
 z0 = 0.9;
 
@@ -79,13 +79,12 @@ counter = 1;
 count = size(cam_Image_Coords,1);
 
 %% 4. Space Resection by Collinearity - Iterative Solution
-% Based off of Elements of Photogrammetry with Applications in GIS (4th
-% edition) Chapter 11 & Appendix D
+% Based off of Elements of Photogrammetry with Applications in GIS (4th edition) Chapter 11 & Appendix B,D
 
 while max(abs(DELTA)) >.00000001
     counter = counter + 1;
     
-    % Elements of Photogrammetry... - Appendix D9. (D-27) m-matrix
+    % Elements of Photogrammetry... - Appendix D.9. (D-28) m-matrix
     m11 = cos(phi)*cos(kappa);
     m12 = sin(omega)*sin(phi)*cos(kappa)+cos(omega)*sin(kappa);
     m13 = -cos(omega)*sin(phi)*cos(kappa)+sin(omega)*sin(kappa);
@@ -100,28 +99,27 @@ while max(abs(DELTA)) >.00000001
         m21 m22 m23;
         m31 m32 m33];
     
-    % Elements of Photogrammetry... - Appendix D3. (D-26) rotation formulas
+    % Elements of Photogrammetry... - Appendix D.5. (D-12) Linerization of Collinearity Equations
     for i = 1:1:count
         dX(i)=X(i)-XL;
         dY(i)=Y(i)-YL;
         dZ(i)=Z(i)-ZL;
+        Q(i) = (m31*dX(i)) + (m32*dY(i)) + (m33*dZ(i));
         R(i) = (m11*dX(i)) + (m12*dY(i)) + (m13*dZ(i));
         S(i) = (m21*dX(i)) + (m22*dY(i)) + (m23*dZ(i));
-        Q(i) = (m31*dX(i)) + (m32*dY(i)) + (m33*dZ(i));
     end
     
-    % Elements of Photogrammetry... - Chapter 11.4. Collinearity condition
+    % Elements of Photogrammetry... - Appendix D.5. (D-11) Linerization of Collinearity Equations
     for i = 1:1:count
-        %J(i) = -x(i) +(R(i)*f)/Q(i);
-        %K(i) = -y(i) +(S(i)*f)/Q(i);
         J(i) = x(i) - (f*(R(i)/Q(i)));
         K(i) = y(i) - (f*(S(i)/Q(i)));
+        %J(i) = -x(i) +(R(i)*f)/Q(i);
+        %K(i) = -y(i) +(S(i)*f)/Q(i);
     end
-    
-    %??
     
     eps = [J(1);K(1);J(2);K(2);J(3);K(3);J(4);K(4)];
     
+    % Elements of Photogrammetry... - Appendix D.5. (D-16) B-Matrix Eqns
     for i = 1:1:count
         b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
         b(i,2) = (f/Q(i)^2)*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
@@ -147,16 +145,15 @@ while max(abs(DELTA)) >.00000001
         b(4,1) b(4,2) b(4,3) b(4,4)  b(4,5)  b(4,6);
         b(4,7) b(4,8) b(4,9) b(4,10) b(4,11) b(4,12)];
     
-    %B matrix - changes
+    % Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
     DELTA = inv(B'*B)*(B'*eps)
-    %counter = rssq(DELTA);
     
-    omega =  DELTA(1)+ omega
-    phi = DELTA(2)+ phi
-    kappa = DELTA(3)+ kappa
-    XL = DELTA(4)+ XL
-    YL = DELTA(5)+ YL
-    ZL = DELTA(6)+ ZL
+    omega =  DELTA(1) + omega
+    phi = DELTA(2) + phi
+    kappa = DELTA(3) + kappa
+    XL = DELTA(4) + XL
+    YL = DELTA(5) + YL
+    ZL = DELTA(6) + ZL
    
 end
 
