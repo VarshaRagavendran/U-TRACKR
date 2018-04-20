@@ -13,18 +13,18 @@ pixSizeX = 0.00000112;
 pixSizeY = 0.00000112;
 
 % image width and height (pix)
-%imgWidth = 3280;
-%imgHeight = 2464; 
+imgWidth = 3280;
+imgHeight = 2464; 
 
-imgWidth = 2464;
-imgHeight = 3280; 
+% imgWidth = 2464;
+% imgHeight = 3280; 
 
 % pixel coordinates of the 4 points in image: [x,y] (pix)
-%  cam_Pixel_Coords=[
-%      2000 805;
-%      1292 936;
-%      1382 1676;
-%      2096 1674];
+ cam_Pixel_Coords=[
+     2000 805;
+     1292 936;
+     1382 1676;
+     2096 1674];
 
 % cam1v2 rotated 90 deg:
 % cam_Pixel_Coords = [1660, 2000;
@@ -32,11 +32,11 @@ imgHeight = 3280;
 % 789, 1383;
 % 789, 2095]
 
- cam_Pixel_Coords=[
-     805 2000;
-     936 1292;
-     1676 1382;
-     1674 2096];
+%  cam_Pixel_Coords=[
+%      805 2000;
+%      936 1292;
+%      1676 1382;
+%      1674 2096];
  
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
