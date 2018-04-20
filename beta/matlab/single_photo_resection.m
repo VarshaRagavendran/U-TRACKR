@@ -125,17 +125,17 @@ while counter < 5 %max(abs(DELTA)) >.00000001
         b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
         b(i,2) = (f/Q(i)^2)*((R(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(-sin(phi)*cos(kappa)*dX(i)+sin(omega)*cos(phi)*cos(kappa)*dY(i)-cos(omega)*cos(phi)*cos(kappa)*dZ(i))));
         b(i,3) = (-f/Q(i))*(m21*dX(i)+m22*dY(i)+m23*dZ(i));
-        b(i,4) = (f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
-        b(i,5) = (f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
-        b(i,6) = (f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
+        b(i,4) = -(f/Q(i)^2)*(R(i)*m31-Q(i)*m11);
+        b(i,5) = -(f/Q(i)^2)*(R(i)*m32-Q(i)*m12);
+        b(i,6) = -(f/Q(i)^2)*(R(i)*m33-Q(i)*m13);
         
         %b(1,7) = b21, b(1,8) = b22, and so on.
         b(i,7) = (f/Q(i)^2)*(S(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m23*dY(i)+m22*dZ(i)));
         b(i,8) = (f/Q(i)^2)*((S(i)*(cos(phi)*dX(i)+sin(omega)*sin(phi)*dY(i)-cos(omega)*sin(phi)*dZ(i))- Q(i)*(sin(phi)*sin(kappa)*dX(i)-sin(omega)*cos(phi)*sin(kappa)*dY(i)+cos(omega)*cos(phi)*sin(kappa)*dZ(i))));
         b(i,9) = (f/Q(i))*(m11*dX(i)+m12*dY(i)+m13*dZ(i));
-        b(i,10) = (f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
-        b(i,11) = (f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
-        b(i,12) = (f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        b(i,10) = -(f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
+        b(i,11) = -(f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
+        b(i,12) = -(f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
     end
     
     B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
