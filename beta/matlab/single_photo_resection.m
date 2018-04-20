@@ -18,27 +18,27 @@ imgHeight = 2464;
 
 % pixel coordinates of the 4 points in image: [x,y] (pix)
 cam_Pixel_Coords=[
-    2119 1686;
-    2072 815;
-    1337 897;
-    1395 1639];
+    2000 805;
+    1292 936;
+    1382 1676;
+    2096 1674];
 
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
-    0.44 0.176 0;
     0.704 0.44 0;
     0.44 0.704 0;
-    0.176 0.44 0];
+    0.176 0.44 0;
+    0.44 0.176 0];
 
 % initial exterior orientation coords parameters (m)
-x0 = 0;
-y0 = 0.8;
-z0 = 0.9;
+x0 = 0.05;
+y0 = 0.05;
+z0 = 0.98;
 
 % initial exterior orientation angle parameters (rads)
-omega = 0;
+omega = 0.785398;
 phi = 0.785398; % 45 deg
-kappa = 0.785398; % 45 deg
+kappa = 0; % 45 deg
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -81,7 +81,7 @@ count = size(cam_Image_Coords,1);
 %% 4. Space Resection by Collinearity - Iterative Solution
 % Based off of Elements of Photogrammetry with Applications in GIS (4th edition) Chapter 11 & Appendix B,D
 
-while counter < 5 %max(abs(DELTA)) >.00000001
+while counter < 20 %max(abs(DELTA)) >.00000001
     counter = counter + 1;
     
     % Based off of ESSE3650_08_Colinearity_01FEB2017.pdf slide 35, 2.1.
@@ -105,6 +105,7 @@ while counter < 5 %max(abs(DELTA)) >.00000001
         dX(i)=X(i)-XL;
         dY(i)=Y(i)-YL;
         dZ(i)=Z(i)-ZL;
+        
         Q(i) = (m31*dX(i)) + (m32*dY(i)) + (m33*dZ(i));
         R(i) = (m11*dX(i)) + (m12*dY(i)) + (m13*dZ(i));
         S(i) = (m21*dX(i)) + (m22*dY(i)) + (m23*dZ(i));
@@ -112,8 +113,8 @@ while counter < 5 %max(abs(DELTA)) >.00000001
     
     % Elements of Photogrammetry... - Appendix D.5. (D-11) Linerization of Collinearity Equations
     for i = 1:1:count
-        J(i) = x(i) - (f*(R(i)/Q(i)));
-        K(i) = y(i) - (f*(S(i)/Q(i)));
+        J(i) = x(i) + (f*(R(i)/Q(i)));
+        K(i) = y(i) + (f*(S(i)/Q(i)));
         %J(i) = -x(i) +(R(i)*f)/Q(i);
         %K(i) = -y(i) +(S(i)*f)/Q(i);
     end
