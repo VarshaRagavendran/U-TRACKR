@@ -13,16 +13,31 @@ pixSizeX = 0.00000112;
 pixSizeY = 0.00000112;
 
 % image width and height (pix)
-imgWidth = 3280;
-imgHeight = 2464; 
+%imgWidth = 3280;
+%imgHeight = 2464; 
+
+imgWidth = 2464;
+imgHeight = 3280; 
 
 % pixel coordinates of the 4 points in image: [x,y] (pix)
-cam_Pixel_Coords=[
-    2000 805;
-    1292 936;
-    1382 1676;
-    2096 1674];
+%  cam_Pixel_Coords=[
+%      2000 805;
+%      1292 936;
+%      1382 1676;
+%      2096 1674];
 
+% cam1v2 rotated 90 deg:
+% cam_Pixel_Coords = [1660, 2000;
+% 1526, 1293;
+% 789, 1383;
+% 789, 2095]
+
+ cam_Pixel_Coords=[
+     805 2000;
+     936 1292;
+     1676 1382;
+     1674 2096];
+ 
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
     0.704 0.44 0;
@@ -36,9 +51,9 @@ y0 = 0.05;
 z0 = 0.98;
 
 % initial exterior orientation angle parameters (rads)
-omega = 0.785398;
+omega = 0.785398; % 45 deg
 phi = 0.785398; % 45 deg
-kappa = 0; % 45 deg
+kappa = 0; 
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -139,6 +154,7 @@ while counter < 20 %max(abs(DELTA)) >.00000001
         b(i,12) = -(f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
     end
     
+    % assembling B design matrix 
     B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
         b(1,7) b(1,8) b(1,9) b(1,10) b(1,11) b(1,12);
         b(2,1) b(2,2) b(2,3) b(2,4)  b(2,5)  b(2,6);
@@ -151,17 +167,16 @@ while counter < 20 %max(abs(DELTA)) >.00000001
     % Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
     DELTA = inv(B'*B)*(B'*eps)
     
+    % Iterative parameters 
     omega =  DELTA(1) + omega
     phi = DELTA(2) + phi
     kappa = DELTA(3) + kappa
     XL = DELTA(4) + XL
     YL = DELTA(5) + YL
-    ZL = DELTA(6) + ZL
-   
+    ZL = DELTA(6) + ZL   
 end
 
 %% 5. Output
-
 omegaL = (180/pi) * omega
 phiL = (180/pi) * phi
 kappaL = (180/pi) * kappa
