@@ -13,8 +13,8 @@ x = [0.4094, -0.1551, -0.4642, -0.6401, -0.3959, -0.0622, 0.4665, 0.5561, -0.297
 y = [0.5908, 0.7050, 0.4620, -0.0084, -0.4329, -0.6423, -0.4609, 0.1058, 1.1374, -0.0263, -1.0646, 0.0577, 0.0286];
 
 % % cam_Image_Coords (mm) - cam2.jpg
-% x = [0.5135, 0.5090, -0.2682, -0.2783];
-% y = [-0.5561, 0.4194, 0.3567, -0.4721];
+% x = [0.4026, 0.4990, 0.3489, -0.1966, -0.5057, -0.6961, -0.4754, -0.1361, 0.8518, -0.3354, -1.0881, -0.2582, -0.2638];
+% y = [-0.5270, 0.0039, 0.5214, 0.6558, 0.4138, -0.0442, -0.4900, -0.7017, 0.0263, 1.0814, -0.0722, -1.1351, -0.0308];
 
 %% READ OBJECT COORDINATE FILE
 % [ X, Y, Z] = textread('test1_ob.txt', '%f %f %f' );
@@ -46,18 +46,19 @@ phi = 0.785398; % 45 deg
 kappa = 0;
 
 % % cam2.jpg
-% % focal length (mm)
-% c = 3.04;
-% % initial exterior orientation coords parameters (m)\
-% xo = 0;
-% yo = 0;
+% % interior camera orientation params (mm)
+% % focal length
+% c = 2.616;
+% xo = 0.2154;
+% yo = -0.4175;
+% % initial exterior orientation coords parameters (m)
 % Xo = 0.90;
-% Yo = 0.05;
+% Yo = 0.01;
 % Zo = 1.10;
 % % initial exterior orientation angle parameters (rads)
 % omega = 0.785398; % 45 deg
-% phi = -0.785398; % 45 deg
-% kappa = 1.5708; % 90 deg
+% phi = 0.785398; % 45 deg
+% kappa = 0;
 
 %% BEGINNING ITERATIONS
 for iteration = 1:40

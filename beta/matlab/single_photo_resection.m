@@ -34,12 +34,21 @@ cam_Pixel_Coords=[
     2440	1181;
     1451	1207];
 
-% % pixel coordinates of the 4 points in cam2.jpg: [x,y] (pix)
+% % pixel coordinates of the 13 points in cam2.jpg: [x,y] (pix)
 % cam_Pixel_Coords=[
-%     2099 1729;
-%     2095 858;
-%     1401 914;
-%     1392 1654];
+%     2000	1703;
+%     2086	1229;
+%     1952	767;
+%     1465	647;
+%     1189	863;
+%     1019	1272;
+%     1216	1670;
+%     1519	1859;
+%     2401	1209;
+%     1341	267;
+%     669     1297;
+%     1410	2246;
+%     1451	1207];
  
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
