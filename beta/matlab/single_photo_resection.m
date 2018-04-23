@@ -118,7 +118,7 @@ count = size(cam_Image_Coords,1);
 %% 4. Space Resection by Collinearity - Iterative Solution
 % Based off of Elements of Photogrammetry with Applications in GIS (4th edition) Chapter 11 & Appendix B,D
 
-while counter < 20 %max(abs(DELTA)) >.00000001
+while max(abs(DELTA)) >.00000001
     counter = counter + 1;
     
     % Based off of ESSE3650_08_Colinearity_01FEB2017.pdf slide 35, 2.1.
