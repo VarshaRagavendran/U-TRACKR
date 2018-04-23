@@ -5,8 +5,10 @@ clear all;
 close all;
 
 %% 1. Input Data
-% focal length (mm)
-f = 3.04;
+% interior camera orientation params (mm)
+f = 2.616; % focal length (mm)
+xo = 0.2154;
+yo = -0.4175;
 
 % camera pixel size (m) https://www.raspberrypi.org/documentation/hardware/camera/README.md
 pixSizeX = 0.00000112;
@@ -16,44 +18,64 @@ pixSizeY = 0.00000112;
 imgWidth = 3280;
 imgHeight = 2464; 
 
-% imgWidth = 2464;
-% imgHeight = 3280; 
+% pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
+cam_Pixel_Coords=[
+    2006	705;
+    1502	603;
+    1226	820;
+    1069	1240;
+    1287	1619;
+    1585	1806;
+    2057	1644;
+    2137	1138;
+    1375	217;
+    712		1256;
+    1515	2183;
+    2440	1181;
+    1451	1207];
 
-% pixel coordinates of the 4 points in image: [x,y] (pix)
- cam_Pixel_Coords=[
-     2000 805;
-     1292 936;
-     1382 1676;
-     2096 1674];
-
-% cam1v2 rotated 90 deg:
-% cam_Pixel_Coords = [1660, 2000;
-% 1526, 1293;
-% 789, 1383;
-% 789, 2095]
-
-%  cam_Pixel_Coords=[
-%      805 2000;
-%      936 1292;
-%      1676 1382;
-%      1674 2096];
+% % pixel coordinates of the 4 points in cam2.jpg: [x,y] (pix)
+% cam_Pixel_Coords=[
+%     2099 1729;
+%     2095 858;
+%     1401 914;
+%     1392 1654];
  
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
-    0.704 0.44 0;
-    0.44 0.704 0;
-    0.176 0.44 0;
-    0.44 0.176 0];
+	0.44	0.176	0;
+	0.616	0.264	0.057;
+	0.704	0.44	0;
+	0.616	0.616	0.060;
+	0.44	0.704	0;
+	0.264	0.616	0.060;
+	0.176	0.44	0;
+	0.264	0.264	0.061;
+	0.704	0.176	0.142;
+	0.704	0.704	0.144;
+	0.176	0.704	0.143;
+	0.176	0.176	0.144;
+	0.44	0.44	0.141];
 
-% initial exterior orientation coords parameters (m)
+% initial exterior orientation coords parameters cam1.jpg (m)
 x0 = 0.05;
 y0 = 0.05;
 z0 = 0.98;
 
-% initial exterior orientation angle parameters (rads)
+% % initial exterior orientation coords parameters cam2.jpg (m)
+% x0 = 0.90;
+% y0 = 0.01;
+% z0 = 1.10;
+
+% initial exterior orientation angle parameters cam1.jpg (rads)
 omega = 0.785398; % 45 deg
 phi = 0.785398; % 45 deg
-kappa = 0; 
+kappa = 0;
+
+% % initial exterior orientation angle parameters cam2.jpg (rads)
+% omega = 0.785398; % 45 deg
+% phi = 0.785398; % 45 deg
+% kappa = 1.5708; % 90 deg 
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -128,14 +150,14 @@ while counter < 20 %max(abs(DELTA)) >.00000001
     
     % Elements of Photogrammetry... - Appendix D.5. (D-11) Linerization of Collinearity Equations
     for i = 1:1:count
-        J(i) = x(i) + (f*(R(i)/Q(i)));
-        K(i) = y(i) + (f*(S(i)/Q(i)));
-        %J(i) = -x(i) +(R(i)*f)/Q(i);
-        %K(i) = -y(i) +(S(i)*f)/Q(i);
+        eps(2*i-1,1) = x(i) + (f*(R(i)/Q(i)));
+        eps(2*i,1) = y(i) + (f*(S(i)/Q(i)));
+        % J(i) = x(i)-xo + (f*(R(i)/Q(i)));
+        % K(i) = y(i)-yo + (f*(S(i)/Q(i)));
+        % J(i) = -x(i) +(R(i)*f)/Q(i);
+        % K(i) = -y(i) +(S(i)*f)/Q(i);
     end
-    
-    eps = [J(1);K(1);J(2);K(2);J(3);K(3);J(4);K(4)];
-    
+       
     % Elements of Photogrammetry... - Appendix D.5. (D-16) B-Matrix Eqns
     for i = 1:1:count
         b(i,1) = (f/Q(i)^2)*(R(i)*(-m33*dY(i)+m32*dZ(i))-Q(i)*(-m13*dY(i)+m12*dZ(i)));
@@ -152,17 +174,11 @@ while counter < 20 %max(abs(DELTA)) >.00000001
         b(i,10) = -(f/Q(i)^2)*(S(i)*m31-Q(i)*m21);
         b(i,11) = -(f/Q(i)^2)*(S(i)*m32-Q(i)*m22);
         b(i,12) = -(f/Q(i)^2)*(S(i)*m33-Q(i)*m23);
+        
+        % assembling B design matrix 
+        B(2*i-1,1:6) = [b(i,1) b(i,2) b(i,3) b(i,4) b(i,5) b(i,6)];
+        B(2*i,1:6) = [b(i,7) b(i,8) b(i,9) b(i,10) b(i,11) b(i,12)];
     end
-    
-    % assembling B design matrix 
-    B = [b(1,1) b(1,2) b(1,3) b(1,4)  b(1,5)  b(1,6);
-        b(1,7) b(1,8) b(1,9) b(1,10) b(1,11) b(1,12);
-        b(2,1) b(2,2) b(2,3) b(2,4)  b(2,5)  b(2,6);
-        b(2,7) b(2,8) b(2,9) b(2,10) b(2,11) b(2,12);
-        b(3,1) b(3,2) b(3,3) b(3,4)  b(3,5)  b(3,6);
-        b(3,7) b(3,8) b(3,9) b(3,10) b(3,11) b(3,12);
-        b(4,1) b(4,2) b(4,3) b(4,4)  b(4,5)  b(4,6);
-        b(4,7) b(4,8) b(4,9) b(4,10) b(4,11) b(4,12)];
     
     % Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
     DELTA = inv(B'*B)*(B'*eps)
@@ -186,4 +202,5 @@ ZT = ZL
 
 resection_Coords = [XT, YT, ZT]
 orientation_Angles = [omegaL, phiL, kappaL]
+
 counter
