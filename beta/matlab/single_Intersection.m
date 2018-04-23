@@ -18,36 +18,47 @@ f = 152.057;
 % imgHeight = 2464;
 
 % pixel coordinates of the 4 points in image: [x,y] (pix)
-% cam_Pixel_Coords=[
-%     2000 805;
-%     1292 936;
-%     1382 1676;
-%     2096 1674];
-
+% cam_Image_Coords=[
+%     -12.843 -54.155;
+%     -87.550 -51.157;
+%     ];
 cam_Image_Coords=[
-    -12.843 -54.155;
-    -87.550 -51.157;
-    ];
+    -0.0946, 0.2839;
+    0.3074, 0.0263
+];
 
 % camera space coordinates [X,Y,Z] (m)
 % cam_Ground_Control_Coords=[
-%     0.704 0.44 0;
-%     0.44 0.704 0;
-%     0.176 0.44 0;
-%     0.44 0.176 0];
+%     9577.252 10214.285 555.192;
+%     9803.241 10219.622 556.601];
 
-cam_Ground_Control_Coords=[
-    9577.252 10214.285 555.192;
-    9803.241 10219.622 556.601];
+cam_Ground_Control_Coords= [
+   0.0494 0.0534 1.0195;
+   0.8066 0.0431 0.9870];
+% cam1 resection:
+% 
+% XT = 0.0494
+% YT = 0.0534
+% ZT = 1.0195
+% omegaL = 19.1668
+% phiL = -19.6642
+% kappaL = -130.3060
+% 
+% cam2 resection:
+% XT = 0.8066
+% YT = 0.0431
+% ZT = 0.9870
+% omegaL = 21.9053
+% phiL = 19.6120
+% kappaL = -49.7987
+
+% cam1 object IMCO: [-0.0946, 0.2839];
+% cam2 object IMCO: [0.3074, 0.0263];
 
 % initial exterior orientation angle parameters (rads)
-% omega = 0.785398;
-% phi = 0.785398; % 45 deg
-% kappa = 0; % 45 deg
-
-omega = [1.4022; -0.1557];
-phi = [-0.3112; -1.7063];
-kappa = [0.6470; 0.5513];
+omega = [0.3345237671; 0.3823196086];
+phi = [-0.3432050348; 0.342293973];
+kappa = [-2.274268735; -0.8691512782];
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -87,7 +98,6 @@ count = size(cam_Image_Coords,1);
 %% 4. Space Intersection by Collinearity - Iterative Solution
 % Based off of ESSE3650_08_Colinearity_01FEB2017.pdf slide 35, 2.1.
 for i=1:1:count
-    
     m11(i) = cos(phi(i))*cos(kappa(i));
     m12(i) = sin(omega(i))*sin(phi(i))*cos(kappa(i))+cos(omega(i))*sin(kappa(i));
     m13(i) = -cos(omega(i))*sin(phi(i))*cos(kappa(i))+sin(omega(i))*sin(kappa(i));
