@@ -6,8 +6,8 @@ close all;
 
 %% 1. Input Data
 % focal length (mm)
-% f = 3.04;
-f = 152.057;
+f = 3.04;
+%f = 152.057;
 
 % camera pixel size (m) https://www.raspberrypi.org/documentation/hardware/camera/README.md
 % pixSizeX = 0.00000112;
@@ -111,7 +111,7 @@ for i=1:1:count
 end
 
 % Based off of Elements of Photogrammetry with Applications in GIS (4th edition) Chapter 11 & Appendix B,D
-while counter < 3
+while counter < 40
     counter = counter + 1;
    
     % Elements of Photogrammetry... - Appendix D.5. (D-12) Linerization of Collinearity Equations
@@ -135,13 +135,13 @@ while counter < 3
     
     % Elements of Photogrammetry... - Appendix D.5. (D-16) B-Matrix Eqns
     for i = 1:1:count
-        b(i,1) = (f/Q(i)^2)*(R(i)*m31(i)-Q(i)*m11(i));
-        b(i,2) = (f/Q(i)^2)*(R(i)*m32(i)-Q(i)*m12(i));
-        b(i,3) = (f/Q(i)^2)*(R(i)*m33(i)-Q(i)*m13(i));
+        b(i,1) = -(f/Q(i)^2)*(R(i)*m31(i)-Q(i)*m11(i));
+        b(i,2) = -(f/Q(i)^2)*(R(i)*m32(i)-Q(i)*m12(i));
+        b(i,3) = -(f/Q(i)^2)*(R(i)*m33(i)-Q(i)*m13(i));
         
-        b(i,4) = (f/Q(i)^2)*(S(i)*m31(i)-Q(i)*m21(i));
-        b(i,5) = (f/Q(i)^2)*(S(i)*m32(i)-Q(i)*m22(i));
-        b(i,6) = (f/Q(i)^2)*(S(i)*m33(i)-Q(i)*m23(i));
+        b(i,4) = -(f/Q(i)^2)*(S(i)*m31(i)-Q(i)*m21(i));
+        b(i,5) = -(f/Q(i)^2)*(S(i)*m32(i)-Q(i)*m22(i));
+        b(i,6) = -(f/Q(i)^2)*(S(i)*m33(i)-Q(i)*m23(i));
         
         B(2*i-1,1:3) = [b(i,1) b(i,2) b(i,3)];
         B(2*i,1:3)= [b(i,4) b(i,5) b(i,6)];
