@@ -6,9 +6,9 @@ close all;
 
 %% 1. Input Data
 % interior camera orientation params (mm)
-f = 2.616; % focal length (mm)
-xo = 0.2154;
-yo = -0.4175;
+f = 3.04; % focal length (mm)
+xo = 0;
+yo = 0;
 
 % camera pixel size (m) https://www.raspberrypi.org/documentation/hardware/camera/README.md
 pixSizeX = 0.00000112;
@@ -18,37 +18,37 @@ pixSizeY = 0.00000112;
 imgWidth = 3280;
 imgHeight = 2464; 
 
-% pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
-cam_Pixel_Coords=[
-    2006	705;
-    1502	603;
-    1226	820;
-    1069	1240;
-    1287	1619;
-    1585	1806;
-    2057	1644;
-    2137	1138;
-    1375	217;
-    712		1256;
-    1515	2183;
-    2440	1181;
-    1451	1207];
-
-% % pixel coordinates of the 13 points in cam2.jpg: [x,y] (pix)
+% % pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
 % cam_Pixel_Coords=[
-%     2000	1703;
-%     2086	1229;
-%     1952	767;
-%     1465	647;
-%     1189	863;
-%     1019	1272;
-%     1216	1670;
-%     1519	1859;
-%     2401	1209;
-%     1341	267;
-%     669     1297;
-%     1410	2246;
-%     1451	1207];
+%     2015	817;
+%     1539	667;
+%     1237	858;
+%     1031	1265;
+%     1208	1667;
+%     1492	1889;
+%     1986	1764;
+%     2110	1269;
+%     1435	301;
+%     692     1260;
+%     1376	2267;
+%     2405	1308;
+%     1411	1266];
+
+% pixel coordinates of the 13 points in cam2.jpg: [x,y] (pix)
+cam_Pixel_Coords=[
+    2098	1693;
+    2214	1191;
+    2081	711;
+    1573	579;
+    1287	804;
+    1099	1216;
+    1296	1634;
+    1589	1839;
+    2513	1182;
+    1453	205;
+    748     1232;
+    1479	2228;
+    1484	1203];
  
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
@@ -66,25 +66,25 @@ cam_Ground_Control_Coords=[
 	0.176	0.176	0.144;
 	0.44	0.44	0.141];
 
-% initial exterior orientation coords parameters cam1.jpg (m)
-x0 = 0.05;
+% % initial exterior orientation coords parameters cam1.jpg (m)
+% x0 = 0.05;
+% y0 = 0.05;
+% z0 = 0.98;
+
+% initial exterior orientation coords parameters cam2.jpg (m)
+x0 = 0.85;
 y0 = 0.05;
-z0 = 0.98;
+z0 = 1.00;
 
-% % initial exterior orientation coords parameters cam2.jpg (m)
-% x0 = 0.90;
-% y0 = 0.01;
-% z0 = 1.10;
-
-% initial exterior orientation angle parameters cam1.jpg (rads)
-omega = 0.785398; % 45 deg
-phi = 0.785398; % 45 deg
-kappa = 0;
-
-% % initial exterior orientation angle parameters cam2.jpg (rads)
+% % initial exterior orientation angle parameters cam1.jpg (rads)
 % omega = 0.785398; % 45 deg
 % phi = 0.785398; % 45 deg
-% kappa = 1.5708; % 90 deg 
+% kappa = 0;
+
+% initial exterior orientation angle parameters cam2.jpg (rads)
+omega = 0.785398; % 45 deg
+phi = 0.785398; % 45 deg
+kappa = -1.5708; % 90 deg 
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -127,7 +127,7 @@ count = size(cam_Image_Coords,1);
 %% 4. Space Resection by Collinearity - Iterative Solution
 % Based off of Elements of Photogrammetry with Applications in GIS (4th edition) Chapter 11 & Appendix B,D
 
-while max(abs(DELTA)) >.00000001
+while counter < 20 %max(abs(DELTA)) >.0001
     counter = counter + 1;
     
     % Based off of ESSE3650_08_Colinearity_01FEB2017.pdf slide 35, 2.1.
