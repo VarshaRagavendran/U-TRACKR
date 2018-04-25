@@ -24,13 +24,13 @@ phi = np.array([[-0.3432050348], [0.342293973]])
 kappa = np.array([[-2.274268735], [-0.8691512782]])
 
 # Image Coords (mm)
-x  = cam_Image_Coords[:][0]
-y  = cam_Image_Coords[:][1]
+x  = cam_Image_Coords[:,0]
+y  = cam_Image_Coords[:,1]
 
 # Space/Ground Control coords (m)
-X  = cam_Ground_Control_Coords[:][0]
-Y  = cam_Ground_Control_Coords[:][1]
-Z  = cam_Ground_Control_Coords[:][2]
+X  = cam_Ground_Control_Coords[:,0]
+Y  = cam_Ground_Control_Coords[:,1]
+Z  = cam_Ground_Control_Coords[:,2]
 
 # Initial orientation parameters
 DELTA = np.array([1, 1, 1])
@@ -89,14 +89,13 @@ while (counter < 20):
         dX.append(X[i]-XL)
         dY.append(Y[i]-YL)
         dZ.append(Z[i]-ZL)
-
-        Q[i] = (m31[i]*dX[i]) + (m32[i]*dY[i]) + (m33[i]*dZ[i])
-        R[i] = (m11[i]*dX[i]) + (m12[i]*dY[i]) + (m13[i]*dZ[i])
-        S[i] = (m21[i]*dX[i]) + (m22[i]*dY[i]) + (m23[i]*dZ[i])
+        Q.append((m31[i]*dX[i]) + (m32[i]*dY[i]) + (m33[i]*dZ[i]))
+        R.append((m11[i]*dX[i]) + (m12[i]*dY[i]) + (m13[i]*dZ[i]))
+        S.append((m21[i]*dX[i]) + (m22[i]*dY[i]) + (m23[i]*dZ[i]))
 
     # Elements of Photogrammetry... - Appendix D.5. (D-11) Linerization of Collinearity Equations
-    eps = [[0 for x in range(1)] for y in range(count)] ######################################################
-    for i in range(0,count):
+    eps = [[0 for m in range(1)] for n in range(count)] ######################################################
+    for i in range(0,count-1):
         eps[2*i][0] = x[i] + (f*(R[i]/Q[i]))
         eps[2*i+1][0] = y[i] + (f*(S[i]/Q[i]))
 
@@ -104,13 +103,13 @@ while (counter < 20):
     b = [[0 for x in range(6)] for y in range(count)] ######################################################
     B = [[0 for x in range(6)] for y in range(count)] ######################################################
 
-    for i in range(0,count):
-        b[i,0] = -(f/Q[i]**2)*(R[i]*m31[i]-Q[i]*m11[i])
-        b[i,1] = -(f/Q[i]**2)*(R[i]*m32[i]-Q[i]*m12[i])
-        b[i,2] = -(f/Q[i]**2)*(R[i]*m33[i]-Q[i]*m13[i])
-        b[i,3] = -(f/Q[i]**2)*(S[i]*m31[i]-Q[i]*m21[i])
-        b[i,4] = -(f/Q[i]**2)*(S[i]*m32[i]-Q[i]*m22[i])
-        b[i,5] = -(f/Q[i]**2)*(S[i]*m33[i]-Q[i]*m23[i])
+    for i in range(0,count-1):
+        b[i][0] = -(f/Q[i]**2)*(R[i]*m31[i]-Q[i]*m11[i])
+        b[i][1] = -(f/Q[i]**2)*(R[i]*m32[i]-Q[i]*m12[i])
+        b[i][2] = -(f/Q[i]**2)*(R[i]*m33[i]-Q[i]*m13[i])
+        b[i][3] = -(f/Q[i]**2)*(S[i]*m31[i]-Q[i]*m21[i])
+        b[i][4] = -(f/Q[i]**2)*(S[i]*m32[i]-Q[i]*m22[i])
+        b[i][5] = -(f/Q[i]**2)*(S[i]*m33[i]-Q[i]*m23[i])
 
         #B[2*i][0] = b[i][0]
         #B[2*i][1] = b[i][1]
@@ -119,12 +118,13 @@ while (counter < 20):
         #B[2*i+1][1] = b[i][4]
         #B[2*i+1][2] = b[i][5]
 
-        B[2*i][0:2] = [b[i,0], b[i,1], b[i,2]] ############################################################
-        B[2*i][0:3] = [b[i,3], b[i,4], b[i,5]] ############################################################
+        B[2*i][0:2] = [b[i][0], b[i][1], b[i][2]] ############################################################
+        B[2*i+1][0:3] = [b[i][3], b[i][4], b[i][5]] ############################################################
 
+ 
+    #DELTA = inv(B'*B)*(B'*eps)
     # Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
     DELTA = np.dot(np.linalg.inv(np.dot(B.transpose(),B)), np.dot(B.transpose(), eps))
-
     XL = DELTA[0] + XL
     YL = DELTA[1] + YL
     ZL = DELTA[2] + ZL
