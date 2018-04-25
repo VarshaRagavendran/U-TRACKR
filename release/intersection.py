@@ -121,10 +121,8 @@ while (counter < 20):
         B[2*i][0:2] = [b[i][0], b[i][1], b[i][2]] ############################################################
         B[2*i+1][0:3] = [b[i][3], b[i][4], b[i][5]] ############################################################
 
- 
-    #DELTA = inv(B'*B)*(B'*eps)
     # Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
-    DELTA = np.dot(np.linalg.inv(np.dot(B.transpose(),B)), np.dot(B.transpose(), eps))
+    DELTA = np.dot(np.linalg.inv(np.dot(np.array(B).transpose(),np.array(B))), np.dot(np.array(B).transpose(), eps))
     XL = DELTA[0] + XL
     YL = DELTA[1] + YL
     ZL = DELTA[2] + ZL
