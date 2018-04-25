@@ -7,70 +7,19 @@ close all;
 %% 1. Input Data
 % focal length (mm)
 f = 3.04;
-%f = 152.057;
 
-% camera pixel size (m) https://www.raspberrypi.org/documentation/hardware/camera/README.md
-% pixSizeX = 0.00000112;
-% pixSizeY = 0.00000112;
-
-% image width and height (pix)
-% imgWidth = 3280;
-% imgHeight = 2464;
-
-% pixel coordinates of the 4 points in image: [x,y] (pix)
-% cam_Image_Coords=[
-%     -12.843 -54.155;
-%     -87.550 -51.157;
-%     ];
 cam_Image_Coords=[
     -0.0946, 0.2839;
     0.3074, 0.0263
 ];
 
-% camera space coordinates [X,Y,Z] (m)
-% cam_Ground_Control_Coords=[
-%     9577.252 10214.285 555.192;
-%     9803.241 10219.622 556.601];
-
 cam_Ground_Control_Coords= [
    0.0494 0.0534 1.0195;
    0.8066 0.0431 0.9870];
-% cam1 resection:
-% 
-% XT = 0.0494
-% YT = 0.0534
-% ZT = 1.0195
-% omegaL = 19.1668
-% phiL = -19.6642
-% kappaL = -130.3060
-% 
-% cam2 resection:
-% XT = 0.8066
-% YT = 0.0431
-% ZT = 0.9870
-% omegaL = 21.9053
-% phiL = 19.6120
-% kappaL = -49.7987
 
-% cam1 object IMCO: [-0.0946, 0.2839];
-% cam2 object IMCO: [0.3074, 0.0263];
-
-% initial exterior orientation angle parameters (rads)
 omega = [0.3345237671; 0.3823196086];
 phi = [-0.3432050348; 0.342293973];
 kappa = [-2.274268735; -0.8691512782];
-
-%% 2. Pixel Coordinates to Image Coordinates
-% Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
-% output: cam_image_coords[x,y] in mm
-% for i = 1:length(cam_Pixel_Coords)
-%     cam_Image_Coords(i,1) = ((cam_Pixel_Coords(i,1) - (imgWidth/2) - 0.5) * pixSizeX) * 1000;
-%     cam_Image_Coords(i,2) = (((imgHeight/2) - cam_Pixel_Coords(i,2) + 0.5) * pixSizeY) * 1000;
-% end
-%
-% cam_Image_Coords;
-
-%% 3. Space Intersection by Collinearity - Initialization
 
 % Image Coords (mm)
 x  = cam_Image_Coords(:,1);
