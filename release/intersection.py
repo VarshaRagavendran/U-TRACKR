@@ -15,8 +15,8 @@ class intersection(object):
         self.yo = 0
         self.pixSizeX = 0.00000112
         self.pixSizeY = 0.00000112
-        self.imgWidth = 640
-        self.imgHeight = 480
+        self.imgWidth = 820
+        self.imgHeight = 616
 
     def pixel_to_imageX(self, xarg):
         return ((xarg - (self.imgWidth/2) - 0.5) * self.pixSizeX) * 1000;
