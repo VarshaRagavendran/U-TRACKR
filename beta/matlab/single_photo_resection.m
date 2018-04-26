@@ -20,71 +20,97 @@ imgHeight = 2464;
 
 % % pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
 % cam_Pixel_Coords=[
-%     2015	817;
-%     1539	667;
-%     1237	858;
-%     1031	1265;
-%     1208	1667;
-%     1492	1889;
-%     1986	1764;
-%     2110	1269;
-%     1435	301;
-%     692     1260;
-%     1376	2267;
-%     2405	1308;
-%     1411	1266];
+%     2122	761;
+%     1628	641;
+%     1337	849;
+%     1157	1252;
+%     1344	1657;
+%     1648	1854;
+%     2139	1711;
+%     2240	1238;
+%     1526	263;
+%     806     1260;
+%     1535	2254;
+%     2554	1237;
+%     1527	1246];
 
-% pixel coordinates of the 13 points in cam2.jpg: [x,y] (pix)
+% % pixel coordinates of the 13 points in cam2.jpg: [x,y] (pix)
+% cam_Pixel_Coords=[
+%     2230	1674;
+%     2354	1174;
+%     2229	688;
+%     1722	558;
+%     1405	773;
+%     1223	1185;
+%     1414	1598;
+%     1714	1802;
+%     2714	1177;
+%     1608	160;
+%     865     1177;
+%     1595	2187;
+%     1613	1177];
+
+% pixel coordinates of the 13 points in cam3.jpg: [x,y] (pix)
 cam_Pixel_Coords=[
-    2098	1693;
-    2214	1191;
-    2081	711;
-    1573	579;
-    1287	804;
-    1099	1216;
-    1296	1634;
-    1589	1839;
-    2513	1182;
-    1453	205;
-    748     1232;
-    1479	2228;
-    1484	1203];
+    1307	1595;
+    1613	1839;
+    2127	1755;
+    2301	1281;
+    2229	759;
+    1731	573;
+    1393	751;
+    1161	1145;
+    1473	2219;
+    2661	1309;
+    1683	129;
+    809     1105;
+    1575	1191];
  
 % ground control coordinates [X,Y,Z] (m)
 cam_Ground_Control_Coords=[
-	0.44	0.176	0;
-	0.616	0.264	0.057;
-	0.704	0.44	0;
-	0.616	0.616	0.060;
-	0.44	0.704	0;
-	0.264	0.616	0.060;
-	0.176	0.44	0;
-	0.264	0.264	0.061;
-	0.704	0.176	0.142;
-	0.704	0.704	0.144;
-	0.176	0.704	0.143;
-	0.176	0.176	0.144;
-	0.44	0.44	0.141];
+	0.45	0.18	0;
+	0.63	0.27	0.061;
+	0.72	0.45	0;
+	0.63	0.63	0.061;
+	0.45	0.72	0;
+	0.27	0.63	0.062;
+	0.18	0.45	0;
+	0.27	0.27	0.061;
+	0.72	0.18	0.146;
+	0.72	0.72	0.145;
+	0.18	0.72	0.146;
+	0.18	0.18	0.144;
+	0.45	0.45	0.146];
 
 % % initial exterior orientation coords parameters cam1.jpg (m)
 % x0 = 0.05;
 % y0 = 0.05;
 % z0 = 0.98;
 
-% initial exterior orientation coords parameters cam2.jpg (m)
+% % initial exterior orientation coords parameters cam2.jpg (m)
+% x0 = 0.85;
+% y0 = 0.05;
+% z0 = 1.00;
+
+% initial exterior orientation coords parameters cam3.jpg (m)
 x0 = 0.85;
-y0 = 0.05;
-z0 = 1.00;
+y0 = 0.85;
+z0 = 0.98;
 
 % % initial exterior orientation angle parameters cam1.jpg (rads)
 % omega = 0.785398; % 45 deg
-% phi = 0.785398; % 45 deg
+% phi = -0.785398; % 45 deg
 % kappa = 0;
 
-% initial exterior orientation angle parameters cam2.jpg (rads)
-omega = 0.785398; % 45 deg
+% % initial exterior orientation angle parameters cam2.jpg (rads)
+% omega = 0.785398; % 45 deg
+% phi = -0.785398; % 45 deg
+% kappa = -1.5708; % -90 deg
+
+% initial exterior orientation angle parameters cam3.jpg (rads)
+omega = -0.785398; % 45 deg
 phi = 0.785398; % 45 deg
-kappa = -1.5708; % 90 deg 
+kappa = -3.14159265; % -180 deg
 
 %% 2. Pixel Coordinates to Image Coordinates
 % Based off of ESSE3650_03_CamerasImageMeas_16JAN2017.pdf slide 54
@@ -202,9 +228,9 @@ while counter < 20 %max(abs(DELTA)) >.0001
 end
 
 %% 5. Output
-omegaL = (180/pi) * omega
-phiL = (180/pi) * phi
-kappaL = (180/pi) * kappa
+omegaL = omega
+phiL = phi
+kappaL = kappa
 XT = XL
 YT = YL
 ZT = ZL

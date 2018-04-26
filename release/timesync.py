@@ -8,7 +8,8 @@ class timesync(object):
         un = 'pi'
         pwd = 'raspberry'
 
-        self.raspiVidCommand = 'raspivid -t 0 -n -w 1280 -h 720 -fps 30 -rot 90 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000'
+        # self.raspiVidCommand = 'raspivid -t 0 -n -w 1280 -h 720 -fps 30 -rot 90 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000'
+        self.raspiVidCommand = 'raspivid -t 0 -n -w 640 -h 480 -fps 30 -rot 90 -ex fixedfps -ex auto -b 25000000 -o - | nc -l 5000'
         self.timeStampCommand = 'date \'+%Y-%m-%d %H:%M:%S\''
         self.ssh = paramiko.SSHClient()
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())

@@ -20,7 +20,7 @@ class tracker(object):
             print self.timesync.getTimeStamp()
 
     def getFrame(self):
-        frame = np.zeros(shape=(600, 400, 3)).astype('uint8')
+        frame = np.zeros(shape=(640, 480, 3)).astype('uint8')
         if (self.cap.isOpened()):
             ret, frame = self.cap.read()
             if ret:
@@ -37,7 +37,7 @@ class tracker(object):
                 # (grabbed, frame) = self.cap.read()
                 # resize the frame, blur it, and convert it to the HSV
                 # color space
-                frame = imutils.resize(frame, width=600)
+                # frame = imutils.resize(frame, width=640)
                 # blurred = cv2.GaussianBlur(frame, (11, 11), 0)
                 hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -89,7 +89,7 @@ class tracker(object):
     def getFrameARUCO(self):
         if (self.cap.isOpened()):
             ret, frame = self.cap.read()
-            frame = imutils.resize(frame, width=600)
+            # frame = imutils.resize(frame, width=640)
             #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             aruco_dict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_1000)
             parameters = cv2.aruco.DetectorParameters_create()
@@ -110,9 +110,9 @@ class tracker(object):
 
     def captureFrame(self, frameName):
         ret, frame = self.cap.read()
-        frame = imutils.resize(frame, width=600)
+        # frame = imutils.resize(frame, width=640)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite("frame%d.jpg" % ret, frame)
+        cv2.imwrite(frameName+".jpg", frame)
         cv2.imshow('frame', gray)
 
     def stopTracker(self):

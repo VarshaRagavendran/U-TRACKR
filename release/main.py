@@ -1,6 +1,6 @@
 from threading import Thread
 from tracker import tracker
-from intersection import intersection
+from checker import checker
 import time
 
 # pi camera 1
@@ -36,18 +36,18 @@ def func5():
 def func6():
     utrackr3.outputFrame("cam3")
 
-def func7():
-    while True:
-        time.sleep(1)
-        poscalc = intersection(utrackr.x, utrackr.y, utrackr2.x, utrackr2.y, utrackr3.x, utrackr3.y)
-        x, y, z = poscalc.position_calculation()
-        print utrackr.timesync.getTimeStamp() + " x: " + str(x) + " y: " + str(y) + " z: " + str(z)
+# def func7():
+#     while True:
+#         time.sleep(1)
+#         poscalc = checker(utrackr.x, utrackr.y, utrackr2.x, utrackr2.y, utrackr3.x, utrackr3.y, utrackr4.x, utrackr4.y)
+#         x, y, z = poscalc.position_calculation()
+#         print utrackr.timesync.getTimeStamp() + " x: " + str(x) + " y: " + str(y) + " z: " + str(z)
 
 if __name__=='__main__':
-    Thread(target = func1).start()
+    # Thread(target = func1).start()
     Thread(target = func2).start()
-    Thread(target = func3).start()
+    # Thread(target = func3).start()
     Thread(target = func4).start()
-    Thread(target = func5).start()
+    # Thread(target = func5).start()
     Thread(target = func6).start()
-    Thread(target=func7).start()
+    # Thread(target=func7).start()
