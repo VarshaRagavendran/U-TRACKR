@@ -4,15 +4,6 @@ import math
 # focal length (mm)
 f = 3.04
 
-# pixel size X,Y
-# camera pixel size (m) https://www.raspberrypi.org/documentation/hardware/camera/README.md
-pixSizeX = 0.00000112
-pixSizeY = 0.00000112
-
-# dimension of image: width and height
-width_Of_Image = 3280
-height_Of_Image = 2464
-
 # pixel coordinates of the 4 points in image: [x,y] (pix)
 cam_Image_Coords = np.array([[-0.0946, 0.2839], [0.3074, 0.0263]])
 
@@ -60,6 +51,13 @@ m31 = []
 m32 = []
 m33 = []
 
+dX = []
+dY = []
+dZ = []
+Q = []
+R = []
+S = []
+
 for i in range (0,count):
     m11.append(math.cos(phi[i])*math.cos(kappa[i]))
     m12.append(math.sin(omega[i])*math.sin(phi[i])*math.cos(kappa[i])+math.cos(omega[i])*math.sin(kappa[i]))
@@ -78,13 +76,6 @@ while (counter < 20):
 # Elements of Photogrammetry... - Appendix D.5. (D-12) Linerization of Collinearity Equations
 # ESSE3650_08_Colinearity_01FEB2017.pdf slide 35, 2.2.1.
 
-    dX = []
-    dY = []
-    dZ = []
-    Q = []
-    R = []
-    S = []
-
     for i in range(0,count):
         dX.append(X[i]-XL)
         dY.append(Y[i]-YL)
@@ -94,16 +85,16 @@ while (counter < 20):
         S.append((m21[i]*dX[i]) + (m22[i]*dY[i]) + (m23[i]*dZ[i]))
 
     # Elements of Photogrammetry... - Appendix D.5. (D-11) Linerization of Collinearity Equations
-    eps = [[0 for m in range(1)] for n in range(count)] ######################################################
-    for i in range(0,count-1):
-        eps[2*i][0] = x[i] + (f*(R[i]/Q[i]))
-        eps[2*i+1][0] = y[i] + (f*(S[i]/Q[i]))
+    eps = [0 for m in range(count*2)]
+    for i in range(0,count):
+        eps[2*i] = x[i] + (f*(R[i]/Q[i]))
+        eps[(2*i)+1] = y[i] + (f*(S[i]/Q[i]))
 
     # Elements of Photogrammetry... - Appendix D.5. (D-16) B-Matrix Eqns
-    b = [[0 for x in range(6)] for y in range(count)] ######################################################
-    B = [[0 for x in range(6)] for y in range(count)] ######################################################
+    b = [[0 for j in range(6)] for k in range(count)]
+    B = [[0 for j in range(2)] for k in range(count*2)]
 
-    for i in range(0,count-1):
+    for i in range(0,count):
         b[i][0] = -(f/Q[i]**2)*(R[i]*m31[i]-Q[i]*m11[i])
         b[i][1] = -(f/Q[i]**2)*(R[i]*m32[i]-Q[i]*m12[i])
         b[i][2] = -(f/Q[i]**2)*(R[i]*m33[i]-Q[i]*m13[i])
@@ -118,11 +109,12 @@ while (counter < 20):
         #B[2*i+1][1] = b[i][4]
         #B[2*i+1][2] = b[i][5]
 
-        B[2*i][0:2] = [b[i][0], b[i][1], b[i][2]] ############################################################
-        B[2*i+1][0:3] = [b[i][3], b[i][4], b[i][5]] ############################################################
+        B[2*i][0:2] = [b[i][0], b[i][1], b[i][2]]
+        B[(2*i)+1][0:2] = [b[i][3], b[i][4], b[i][5]]
 
     # Elements of Photogrammetry... - Appendix B.9. (B-13) Matrix Methods in Least Squares Adjustment Solution
     DELTA = np.dot(np.linalg.inv(np.dot(np.array(B).transpose(),np.array(B))), np.dot(np.array(B).transpose(), eps))
+    # DELTA = np.dot(np.dot(np.linalg.inv(np.array(np.dot(B.transpose(), B))), B.transpose()), eps)
     XL = DELTA[0] + XL
     YL = DELTA[1] + YL
     ZL = DELTA[2] + ZL
