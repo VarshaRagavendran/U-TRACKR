@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>U-TRACKR</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fa fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">Menu</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#about">About</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">Team</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#videos">Videos</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#applications">Applications</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#portfolio">Deliverables</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#technology">Technology</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#acknowledgements">Acknowledgements</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto" id="mybutton-container">
+      <!--<h1 class="mb-1">Stylish Portfolio</h1>
+      <h3 class="mb-5">
+      <em>A Free Bootstrap Theme by Start Bootstrap</em>
+    </h3>-->
+    <a href="#about" class="btn btn-circle js-scroll-trigger">
+      <i class="fa fa-angle-double-down animated"></i>
+    </a>
+    <!--<a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>-->
+  </div>
+  <!--<div class="overlay"></div>-->
+</header>
+
+<!-- About -->
+<section class="content-section bg-light" id="about">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2>An Indoor UAV Tracking System</h2>
+        <p class="lead mb-5">The project files can be found in this
+          <a href="https://github.com/azkevin/U-TRACKR">repo</a>!</p>
+          <p> The U-TRACKR system provides real-time navigation for UAVs placed within a defined area. The key objective is to locate the position of the UAV in an indoor setting, where GPS is unreliable, using only the image sequences of a limited camera system. Ultimately, the system will track and model the trajectory of autonomous UAVs using image-processing and photogrammetry. The team has accomplished time synchronization between the cameras, space resection, and position calculations to obtain the coordinates of the UAV.</p>
+          <!--<img class="img-fluid" src="img/photogrammetry.jpg" alt="">-->
+
+          <p>The system consists of four inexpensive Raspberry Pi camera modules fixed at the corners of a stable metal frame. The camera angles were chosen so that the entire area of the frame is covered. A personal laptop with a high processing rate produces real-time calculations, manages the synchronization between the four Raspberry Pi camera modules, and runs the OpenCV software for object detection with minimum delay. </p>
+          <a class="btn btn-dark btn-xl js-scroll-trigger" id="team-btn" href="#services">About the Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Members -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+      <div class="content-section-heading">
+        <h3 class="text-secondary mb-0">Members of</h3>
+        <h2 class="mb-5">U-TRACKR</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <img class="img-fluid" src="img/ariel.jpg" alt="">
+          </span>
+          <h4>
+            <strong>Ariel Laboriante</strong>
+          </h4>
+          <p class="text-faded mb-0"><i class="icon-pencil"></i> The Designer</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <!--<i class="icon-screen-desktop"></i>-->
+            <img class="img-fluid" src="img/kevin.jpg" alt="">
+          </span>
+          <h4>
+            <strong>Kevin Arindaeng</strong>
+          </h4>
+          <p class="text-faded mb-0"><i class="icon-screen-desktop"></i> The Programmer</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <img class="img-fluid" src="img/varsha.jpg" alt="">
+          </span>
+          <h4>
+            <strong>Varsha Ragavendran</strong>
+          </h4>
+          <p class="text-faded mb-0"><i class="icon-control-play"></i> The Animator</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <img class="img-fluid" src="img/jack.jpg" alt="">
+          </span>
+          <h4>
+            <strong>Jack Lu</strong>
+          </h4>
+          <p class="text-faded mb-0"><i class="icon-bulb"></i> The Brains</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="callout" id="videos">
+    <div class="container text-center">
+      <h2 class="mx-auto mb-5">Videos</h2>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/u9b5l6OfDpA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/ivF6iSyullQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <!--<a class="btn btn-primary btn-xl" href="https://startbootstrap.com/template-overviews/stylish-portfolio/">Project Video</a>*/-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="content-section bg-primary text-white" id="applications">
+    <div class="container text-center">
+      <h2 class="mb-5">Applications</h2>
+      <p>For outdoor applications, UAVs are hindered by flying regulations and noise pollution control.
+        However, UAVs have great potential in many indoor applications. The U-TRACKR system improves the
+        efficiency and cost-effectiveness of UAVs by providing positioning technology and indoor navigation.
+        Our system can be used in warehouse applications where UAVs have the advantages of a flexible flight
+        path, automation, and the ability to enter environments that are dangerous to human life. The U-TRACKR
+        system will fulfill the need for employee safety, increased productivity, and reduced company expenses
+        allocated to damaged UAVs. The U-TRACKR can also be used to track autonomous ground vehicles in shipping
+        warehouses. For example, Amazon uses Kiva robots to improve their Prime services and promises the delivery
+        of items within two days. However, these industrial robots come at a cost and warehouses have to be designed
+        around them. For example, floors need to have custom grids so that the robots can move, and workers are at
+        risk of getting hit if they are in the way. The U-TRACKR system provides a solution to these flaws and
+        enables trajectory control in indoor, GPS-denied spaces for these otherwise blind robots.</p>
+        <p>The scope of application can also be expanded to animals in captivity. Currently, zoos are using techniques
+          such as attaching acoustic tags or GPS tags on animals to carry out their research, capture movements, and
+          study behavioral patterns. These techniques are invasive and may not be available for indoor areas with GPS
+          limitations. The execution of this project minimizes human interaction and disturbances, and provides an
+          non-invasive solution for the study of animal lifestyle and behavior.
+          The U-TRACKR can also be used to compare the popularity of indoor exhibits and stores. Some museums and
+          art galleries are presently using IoT (Indoor Location) tracking with the help of visitor heat-maps to
+          determine and compare the popularity of exhibitions. The U-TRACKR can provide real-time data collection
+          with accurate human behavior trends by using a machine learning library called TensorFlow.</p>
+          <!--<a href="#" class="btn btn-xl btn-light mr-4">Click Me!</a>-->
+          <!--<a href="#" class="btn btn-xl btn-dark">Look at Me!</a>-->
+        </div>
+      </section>
+
+
+      <!-- Deliverables -->
+      <section class="content-section" id="portfolio">
+        <div class="container">
+          <div class="content-section-heading text-center">
+            <h3 class="text-secondary mb-0">Deliverables</h3>
+            <h2 class="mb-5">Project in Progress</h2>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="./pdf/TPS.pdf">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Team and Project Summary</h2>
+                    <p class="mb-0">25/09/2017</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="./pdf/PDR.pdf">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Preliminary Design Review</h2>
+                    <p class="mb-0">23/10/17</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="./pdf/CDR.pdf">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Critical Design Review</h2>
+                    <p class="mb-0">04/12/17</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-5.jpg" alt="">
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="./pdf/TRR.pdf">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Test Readiness Review</h2>
+                    <p class="mb-0">05/02/18</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-6.jpg" alt="">
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="./pdf/TR.pdf">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Test Review</h2>
+                    <p class="mb-0">19/03/18</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a class="portfolio-item" href="#">
+                <span class="caption">
+                  <span class="caption-content">
+                    <h2>Final Report</h2>
+                    <p class="mb-0">TBC</p>
+                  </span>
+                </span>
+                <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technology -->
+      <section class="callout" id="technology">
+        <div class="container text-center">
+          <h2 class="mx-auto mb-5">Technology</h2>
+          <img class="img-fluid" id="technology-diagram" src="img/technology-diagram.jpg" alt="">
+          <p id="technology-text">The software deliverables for the Primary Processing System for U-TRACKR consists of three components: Python, OpenCV, and the U-TRACKR Codebase.</p>
+          <p>This project uses four python libraries: NumPy, SymPy, imutils, picamera[array], and paramiko. Numpy is used to define the HSV array values for object tracking purposes using OpenCV. SymPy is used for position calculation purposes, specifically in the space resection and intersection algorithm. The library imutils is used to resize the video stream from each camera output to an appropriate size. The two libraries picamera[array] and paramiko are used to interface between the primary processing system and each Raspberry Pi Zero.</p>
+        </div>
+      </section>
+
+      <!-- Acknowledgements -->
+      <section class="content-section bg-primary text-white" id="acknowledgements">
+        <div class="container text-center">
+          <h2 class="mx-auto mb-5">Acknowledgements</h2>
+          <p>We would like to give a special thanks to:</p>
+          <p>Supervisor, Dr. Costas Armenakis</p>
+          <p>Graduate Student, Erin Du</p>
+          <p>Industry Advisor, Lui Tai</p>
+          <p>Professors, Franz Newland, James Smith, and Hossam Sadek</p>
+          <!--<a href="#" class="btn btn-xl btn-light mr-4">Click Me!</a>-->
+          <!--<a href="#" class="btn btn-xl btn-dark">Look at Me!</a>-->
+        </div>
+      </section>
+
+      <!-- Map -->
+      <section id="contact" class="map">
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.024792754916!2d-79.50887308449843!3d43.77234417911728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b2e2fac8ee3c1%3A0xcaf8e12f7def38ce!2sBergeron+Centre+for+Engineering+Excellence!5e0!3m2!1sen!2sca!4v1524699379262"></iframe>
+        <br/>
+        <small>
+          <a href="https://goo.gl/maps/AX2tobTjBSF2"></a>
+        </small>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer text-center">
+        <div class="container">
+          <ul class="list-inline mb-5">
+            <li class="list-inline-item">
+              <a class="social-link rounded-circle text-white mr-3" href="https://www.facebook.com/">
+                <i class="icon-social-facebook"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a class="social-link rounded-circle text-white mr-3" href="https://www.youtube.com/watch?v=u9b5l6OfDpA">
+                <i class="icon-social-youtube"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a class="social-link rounded-circle text-white" href="https://github.com/azkevin/U-TRACKR">
+                <i class="icon-social-github"></i>
+              </a>
+            </li>
+          </ul>
+          <p class="text-muted small mb-0">Copyright &copy; U-TRACKR 2018</p>
+        </div>
+      </footer>
+
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+      </a>
+
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+      <!-- Custom scripts for this template -->
+      <script src="js/stylish-portfolio.min.js"></script>
+
+    </body>
+
+    </html>
