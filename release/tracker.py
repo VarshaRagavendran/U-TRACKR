@@ -94,8 +94,13 @@ class tracker(object):
             aruco_dict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_1000)
             parameters = cv2.aruco.DetectorParameters_create()
             corners, ids, rejectedImgPoints = cv2.aruco.detectMarkers(frame, aruco_dict, parameters=parameters)
-            #print(corners)
+            # print("corners" + str(corners))
             gray = cv2.aruco.drawDetectedMarkers(frame, corners)
+            if len(corners) > 0:
+                self.x = ((corners[0].item(6) + corners[0].item(2))/2)
+                self.y = ((corners[0].item(7) + corners[0].item(3))/2)
+                cv2.circle(frame, (int(((corners[0].item(6) + corners[0].item(2))/2)), int(((corners[0].item(7) + corners[0].item(3))/2))), int(5), (0, 255, 255), 2)
+
         return gray
 
     def outputFrame(self, frameName):

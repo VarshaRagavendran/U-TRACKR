@@ -4,13 +4,13 @@ from checker import checker
 import time
 
 # pi camera 1
-utrackr = tracker('192.168.0.21')
+utrackr = tracker('192.168.0.23')
 
 # pi camera 2
-utrackr2 = tracker('192.168.0.19')
+utrackr2 = tracker('192.168.0.21')
 
 # pi camera 3
-utrackr3 = tracker('192.168.0.20')
+utrackr3 = tracker('192.168.0.22')
 
 def func1():
     while (utrackr.cap.isOpened()):

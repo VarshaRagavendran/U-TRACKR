@@ -15,8 +15,8 @@ class intersection(object):
         self.yo = 0
         self.pixSizeX = 0.00000112
         self.pixSizeY = 0.00000112
-        self.imgWidth = 820
-        self.imgHeight = 616
+        self.imgWidth = 640
+        self.imgHeight = 480
 
     def pixel_to_imageX(self, xarg):
         return ((xarg - (self.imgWidth/2) - 0.5) * self.pixSizeX) * 1000;
@@ -31,13 +31,13 @@ class intersection(object):
                                      [self.pixel_to_imageX(self.x3), self.pixel_to_imageY(self.y3)]])
 
         # camera space coordinates [X,Y,Z] (m)
-        cam_Ground_Control_Coords = np.array([[0.06157099169, 0.07060934851, 1.04458976],
-                                              [0.7966293212, 0.0816795553, 1.029443323],
-                                              [0.7849643986, 0.7972458901, 1.022318113]])
+        cam_Ground_Control_Coords = np.array([[0.0353166681, 0.03684110851, 1.044962932],
+                                              [0.7939111255, 0.1065042173, 0.9715076934],
+                                              [0.7933969121, 0.7987291604, 1.012035044]])
 
-        omega = np.array([[0.3629692572], [0.3729153968], [-0.3631335769]])
-        phi = np.array([[-0.3560831591], [0.3562903306], [0.3144897345]])
-        kappa = np.array([[-2.303993867], [-0.8475068616], [-5.331991633]])
+        omega = np.array([[0.3894798702], [0.3834680869], [-0.3276393065]])
+        phi = np.array([[-0.3819569536], [0.332866596], [0.2990655086]])
+        kappa = np.array([[-2.283401489], [-0.8981148577], [-5.445299646]])
 
         # Image Coords (mm)
         x  = cam_Image_Coords[:,0]

@@ -15,14 +15,14 @@ pixSizeX = 0.00000112;
 pixSizeY = 0.00000112;
 
 % image width and height (pix)
-imgWidth = 3280;
-imgHeight = 2464; 
+imgWidth = 820;
+imgHeight = 616; 
 
 % pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
 cam_Pixel_Coords=[
-    1570 2026;
-    1132 1067;
-    1898 413];
+    258.8404236 370.5;
+    339.5 204.5;
+    568.5 239.5];
 
 % % pixel coordinates of the 13 points in cam1.jpg: [x,y] (pix)
 % cam_Pixel_Coords=[

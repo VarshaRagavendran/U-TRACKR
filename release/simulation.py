@@ -26,14 +26,13 @@ def simulatation(x,y,z):
         client.send(toString(x,y,z))
         break
       break       
-      client.close()
+    client.close()
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 #    Thread(target = simulatation(5.5,2.2,3.3)).start()
     #Thread(target = simulatation(13.4,5.5,2.2)).start()
     #Thread(target = simulatation(9.5,4.4,0.3)).start()
-    #Thread(target = simulatation(10.3,9.2,4.5)).start()
-
+    Thread(target = simulatation(10.3,9.2,4.5)).start()
 
     #simulatation(13.4,5.5,2.2)
     #simulatation(9.5,4.4,0.3)
