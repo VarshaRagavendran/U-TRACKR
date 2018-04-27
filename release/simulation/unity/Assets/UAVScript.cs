@@ -10,7 +10,18 @@ using System.Timers;
 
 public class UAVScript : MonoBehaviour
 {
-    private LineRenderer lineRenderer;
+    private float counter;
+    private float distance;
+
+    private ArrayList listOfVectors = new ArrayList();
+
+
+    //public Transform origin;
+    //public Transform destination;
+
+    public float lineDrawSpeed = 6f;
+
+
     public String host = "localhost";
     public Int32 port = 50004;
 
@@ -116,11 +127,25 @@ public class UAVScript : MonoBehaviour
 
     void Simulate2(float x, float y, float z)
     {
+        
         Vector3 newVector = new Vector3(x, y, z);
         Vector3 currentVector = rb.position;
-        Debug.DrawLine(Vector3.zero, new Vector3(1, 0, 0), Color.red);
-
+        addLineVector(currentVector, newVector);
         rb.MovePosition(newVector);
     }
 
+    void addLineVector(Vector3 currentVector, Vector3 newVector){
+        // create a new line renderer
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        LineRenderer lRend = new GameObject().AddComponent<LineRenderer>();
+        lRend.SetPosition(0, transform.position);
+        lRend.SetWidth(.2f, .2f);
+        lRend.SetPosition(1, newVector);
+        listOfVectors.Add(lRend);
+        lRend.SetColors(Color.blue, Color.blue);
+
+        //lineRenderer.SetPosition(0, transform.position);
+        //lineRenderer.SetWidth(.5f, .5f);
+        //lineRenderer.SetPosition(1, newVector);
+    }
 }
